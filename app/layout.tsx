@@ -61,6 +61,17 @@ export default function RootLayout({
             <p>WhatsApp / Call: 93855540</p>
           </div>
         </footer>
+
+        <a
+          href="https://wa.me/6593855540?text=Hi%20Wan%20Wan%20Bakery%2C%20I%20would%20like%20to%20enquire%20about%20your%20bakery%20items."
+          className="floating-whatsapp"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+  💬 WhatsApp Us
+</a>
+
+
       </body>
     </html>
   );
