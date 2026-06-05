@@ -17,7 +17,7 @@ export const products: Product[] = [
     name: "Garlic Bread",
     category: "Bread",
     description:
-      "Freshly baked garlic bread made with premium butter and aromatic garlic. Crispy on the outside and soft on the inside.",
+      "Crafted fresh to order, our garlic bread pairs a delicately crisp crust with a pillowy, buttery interior. Infused with slow-roasted garlic and fine herbs, each loaf is baked for depth of flavour — refined at the dinner table, yet effortless for everyday sharing.",
     price: "Contact for price",
     priceCents: 0,
     leadTime: "Order 1–3 days in advance",
