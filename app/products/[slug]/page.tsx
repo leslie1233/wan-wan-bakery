@@ -5,6 +5,7 @@ import AddToCartButton from "../../../components/AddToCartButton";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import JsonLd from "../../../components/JsonLd";
 import FacebookShareLink from "../../../components/FacebookShareLink";
+import PromotionBanner from "../../../components/PromotionBanner";
 import WhatsAppLink from "../../../components/WhatsAppLink";
 import { getProductBySlug, products } from "../../../data/products";
 import { createPageMetadata } from "../../../lib/metadata";
@@ -75,6 +76,8 @@ export default function ProductDetailPage({
           { name: product.name, path: `/products/${product.slug}` },
         ])}
       />
+
+      <PromotionBanner />
 
       <div className="detail">
       <div className="detail-image">

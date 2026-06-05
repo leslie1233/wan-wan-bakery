@@ -1,3 +1,4 @@
+import { getApplicablePromotion } from "../data/promotions";
 import { siteConfig } from "./site-config";
 
 type OrderLine = {
@@ -38,9 +39,16 @@ export function cartOrderMessage(
   pickupDate?: string,
   notes?: string
 ): string {
+  const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
+  const promotion = getApplicablePromotion(totalQuantity);
+
   const lines = [
     "Hi Wan Wan Bakery, I'd like to place an order:",
     ...items.map((item) => `• ${item.name} x ${item.quantity}`),
+    `• Total quantity: ${totalQuantity}`,
+    promotion
+      ? `• Bulk promotion: ${promotion.label}`
+      : "• Bulk promotion: Not yet qualified (Buy 5 for 20% off, Buy 10 for 30% off)",
     `• Pickup date: ${pickupDate ?? ""}`,
   ];
 

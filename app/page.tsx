@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "../components/ProductCard";
+import PromotionBanner from "../components/PromotionBanner";
 import TrustSection from "../components/TrustSection";
 import FacebookShareLink from "../components/FacebookShareLink";
 import WhatsAppLink from "../components/WhatsAppLink";
@@ -55,6 +56,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <PromotionBanner standalone />
 
       <section id="products" className="container section">
         <h2>Our Products</h2>

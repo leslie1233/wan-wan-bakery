@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "../../components/CartProvider";
+import CartPromotionNote from "../../components/CartPromotionNote";
 import WhatsAppLink from "../../components/WhatsAppLink";
 import { buildWhatsAppUrl, cartOrderMessage } from "../../lib/whatsapp";
 
@@ -70,6 +71,8 @@ export default function CartPage() {
               </article>
             ))}
           </div>
+
+          <CartPromotionNote />
 
           <p className="section-intro">
             We will confirm pricing on WhatsApp based on size and customization.

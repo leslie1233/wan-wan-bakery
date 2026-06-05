@@ -12,6 +12,11 @@ export const faqEntries = [
       "Please order 1–3 days in advance for all items, especially for weekends and celebrations.",
   },
   {
+    question: "Do you have any promotions?",
+    answer:
+      "Yes. Buy 5 items and get 20% off, or buy 10 items and get 30% off. The discount applies to your total order quantity.",
+  },
+  {
     question: "What are your prices?",
     answer:
       "Pricing depends on size and customization. Message us on WhatsApp with what you need and we will confirm the exact amount.",

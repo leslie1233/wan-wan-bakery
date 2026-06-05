@@ -1,4 +1,5 @@
 import ProductCard from "../../components/ProductCard";
+import PromotionBanner from "../../components/PromotionBanner";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import JsonLd from "../../components/JsonLd";
 import { products } from "../../data/products";
@@ -28,6 +29,8 @@ export default function ProductsPage() {
           { name: "Products", path: "/products" },
         ])}
       />
+
+      <PromotionBanner />
 
       <h1>Our Bakery Menu</h1>
       <p className="section-intro">
