@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import AddToCartButton from "../../../components/AddToCartButton";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import JsonLd from "../../../components/JsonLd";
+import FacebookShareLink from "../../../components/FacebookShareLink";
 import WhatsAppLink from "../../../components/WhatsAppLink";
 import { getProductBySlug, products } from "../../../data/products";
 import { createPageMetadata } from "../../../lib/metadata";
@@ -128,6 +129,13 @@ export default function ProductDetailPage({
           <Link className="button secondary" href="/products">
             Back to Catalogue
           </Link>
+          <FacebookShareLink
+            path={`/products/${product.slug}`}
+            className="button facebook"
+            eventLabel={`product_facebook_share_${product.slug}`}
+          >
+            Share on Facebook
+          </FacebookShareLink>
         </div>
       </div>
       </div>

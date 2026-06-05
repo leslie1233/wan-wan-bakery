@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "../lib/site-config";
+import FacebookShareLink from "./FacebookShareLink";
 import WhatsAppLink from "./WhatsAppLink";
 import { buildWhatsAppUrl, generalEnquiryMessage } from "../lib/whatsapp";
 
@@ -65,6 +66,13 @@ export default function Footer() {
       <div className="container footer-bottom">
         <p>© {new Date().getFullYear()} {siteConfig.name}</p>
         <p>Most customers order via WhatsApp — we reply {siteConfig.replyTime}.</p>
+        <FacebookShareLink
+          path="/"
+          className="button facebook footer-share"
+          eventLabel="footer_facebook_share"
+        >
+          Share on Facebook
+        </FacebookShareLink>
       </div>
     </footer>
   );

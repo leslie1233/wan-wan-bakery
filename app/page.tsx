@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "../components/ProductCard";
 import TrustSection from "../components/TrustSection";
+import FacebookShareLink from "../components/FacebookShareLink";
 import WhatsAppLink from "../components/WhatsAppLink";
 import { products } from "../data/products";
 import { createPageMetadata } from "../lib/metadata";
@@ -90,6 +91,13 @@ export default function HomePage() {
             <Link className="button secondary" href="/cart">
               Review Cart
             </Link>
+            <FacebookShareLink
+              path="/"
+              className="button facebook"
+              eventLabel="home_facebook_share"
+            >
+              Share on Facebook
+            </FacebookShareLink>
           </div>
         </div>
       </section>

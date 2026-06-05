@@ -328,6 +328,19 @@ textarea:focus-visible {
   background: #fff4ea;
 }
 
+.button.facebook {
+  background: #1877f2;
+  color: white;
+}
+
+.button.facebook:hover {
+  background: #0d65d9;
+}
+
+.footer-share {
+  margin-top: 12px;
+}
+
 .cta {
   display: flex;
   gap: 12px;
