@@ -1,0 +1,7 @@
+node_modules/
+.next/
+node_modules_backup/
+next_backup/
+.env
+.env.local
+public/Images Temp/

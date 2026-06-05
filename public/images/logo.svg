@@ -1,0 +1,17 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="256" cy="256" r="235" fill="#FFF8F0" stroke="#6B3E26" stroke-width="12"></circle>
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#D4A373" stroke-width="4"></circle>
+  <text x="256" y="205" text-anchor="middle" font-size="58" font-family="Georgia, serif" fill="#6B3E26" font-weight="bold">
+    Wan Wan
+  </text>
+  <text x="256" y="270" text-anchor="middle" font-size="48" font-family="Georgia, serif" fill="#6B3E26" letter-spacing="4">
+    BAKERY
+  </text>
+  <line x1="135" y1="305" x2="377" y2="305" stroke="#D4A373" stroke-width="4"></line>
+  <text x="256" y="350" text-anchor="middle" font-size="24" font-family="Georgia, serif" fill="#6B3E26">
+    Freshly Baked with Love
+  </text>
+  <text x="256" y="405" text-anchor="middle" font-size="22" font-family="Arial, sans-serif" fill="#6B3E26">
+    WhatsApp: 93855540
+  </text>
+</svg>

@@ -1,0 +1,271 @@
+:root {
+  --bg: #fff8ef;
+  --card: #ffffff;
+  --text: #2b2118;
+  --muted: #6f6258;
+  --brand: #b85c38;
+  --brand-dark: #8f3f22;
+  --border: #ead8c8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  background: rgba(255, 248, 239, 0.94);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--brand-dark);
+}
+
+.logo-with-image {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-with-image img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.logo-with-image span {
+  font-weight: 800;
+  color: var(--brand-dark);
+}
+
+.navlinks {
+  display: flex;
+  gap: 18px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.navlinks a:hover {
+  color: var(--brand-dark);
+}
+
+.hero-banner {
+  width: 100%;
+  background: #fff8f0;
+  overflow: hidden;
+}
+
+.hero-banner img {
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  display: block;
+}
+
+.section {
+  padding: 42px 0;
+}
+
+.section h2 {
+  font-size: 34px;
+  margin: 0 0 18px;
+  text-align: center;
+}
+
+.section-intro {
+  max-width: 720px;
+  margin: 0 auto 30px auto;
+  text-align: center;
+  color: #6b3e26;
+  font-size: 1.1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(82, 45, 25, 0.07);
+  transition: all 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(82, 45, 25, 0.15);
+}
+
+.product-photo {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.card p {
+  color: var(--muted);
+  margin: 0 0 14px;
+}
+
+.meta {
+  color: var(--brand-dark);
+  font-weight: 800;
+}
+
+.button {
+  background: var(--brand);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-weight: 800;
+  display: inline-block;
+}
+
+.button:hover {
+  background: var(--brand-dark);
+}
+
+.button.secondary {
+  background: white;
+  color: var(--brand-dark);
+  border: 1px solid var(--border);
+}
+
+.contact-box {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 36px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(82, 45, 25, 0.08);
+}
+
+.contact-box h2 {
+  margin-top: 0;
+}
+
+.footer {
+  margin-top: 40px;
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  text-align: center;
+}
+
+.footer p {
+  margin: 4px 0;
+}
+
+.detail {
+  padding: 48px 0;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 30px;
+}
+
+.detail-image {
+  min-height: 360px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #ffe0c2, #fff6e8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 92px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.list {
+  padding-left: 20px;
+}
+
+@media (max-width: 800px) {
+  .nav {
+    align-items: flex-start;
+    gap: 12px;
+    flex-direction: column;
+  }
+
+  .navlinks {
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .hero-banner img {
+    height: 260px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail {
+    grid-template-columns: 1fr;
+  }
+
+  .product-photo {
+    height: 230px;
+  }
+
+  .logo-with-image img {
+    width: 46px;
+    height: 46px;
+  }
+
+  .contact-box {
+    padding: 24px;
+  }
+}
