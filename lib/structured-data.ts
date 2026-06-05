@@ -10,7 +10,6 @@ export function localBusinessJsonLd() {
     url: siteConfig.url,
     telephone: siteConfig.phoneE164,
     image: `${siteConfig.url}/images/logo.jpg`,
-    priceRange: "$$",
     servesCuisine: "Bakery",
     areaServed: {
       "@type": "Country",
@@ -62,8 +61,6 @@ export function productJsonLd(product: Product) {
     },
     offers: {
       "@type": "Offer",
-      priceCurrency: siteConfig.currency,
-      price: (product.priceCents / 100).toFixed(2),
       availability: "https://schema.org/PreOrder",
       url: `${siteConfig.url}/products/${product.slug}`,
     },

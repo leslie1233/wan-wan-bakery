@@ -35,7 +35,7 @@ export function generateMetadata({
 
   return createPageMetadata({
     title: `${product.name} Singapore`,
-    description: `${product.description} ${product.price}. ${product.leadTime}. Order from Wan Wan Bakery Singapore.`,
+    description: `${product.description} ${product.leadTime}. Order from Wan Wan Bakery Singapore.`,
     path: `/products/${product.slug}`,
     image: product.image,
   });
@@ -94,15 +94,11 @@ export default function ProductDetailPage({
         <p>{product.description}</p>
 
         <p>
-          <strong>Price:</strong> {product.price}
-        </p>
-
-        <p>
           <strong>Lead time:</strong> {product.leadTime}
         </p>
 
         <p className="urgency-note">
-          Limited daily bake slots — order ahead, especially for weekends.
+          Limited daily bake slots — please order 1–3 days in advance for all items.
         </p>
 
         <h2>Highlights</h2>

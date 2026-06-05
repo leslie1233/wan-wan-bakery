@@ -9,12 +9,12 @@ export const faqEntries = [
   {
     question: "How far in advance should I order?",
     answer:
-      "Garlic bread can often be arranged with shorter notice. Cakes are best ordered 1–3 days ahead, especially for weekends and celebrations.",
+      "Please order 1–3 days in advance for all items, especially for weekends and celebrations.",
   },
   {
     question: "What are your prices?",
     answer:
-      "Prices shown on the website are starting prices. Final pricing may vary by size or customization. We will confirm the exact amount on WhatsApp.",
+      "Pricing depends on size and customization. Message us on WhatsApp with what you need and we will confirm the exact amount.",
   },
   {
     question: "Do you deliver?",

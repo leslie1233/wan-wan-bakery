@@ -58,8 +58,8 @@ export default function HomePage() {
       <section id="products" className="container section">
         <h2>Our Products</h2>
         <p className="section-intro">
-          Indicative prices shown below. Contact us to confirm size, availability,
-          and pickup time. Limited slots daily — order 1–3 days ahead for cakes.
+          Contact us to confirm price, size, availability, and pickup time.
+          Limited slots daily — please order 1–3 days in advance for all items.
         </p>
 
         <div className="grid">

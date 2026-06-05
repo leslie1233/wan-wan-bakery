@@ -4,11 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "../../components/CartProvider";
 import WhatsAppLink from "../../components/WhatsAppLink";
-import { formatPrice } from "../../lib/format";
 import { buildWhatsAppUrl, cartOrderMessage } from "../../lib/whatsapp";
 
 export default function CartPage() {
-  const { items, totalCents, updateQuantity, removeItem, clearCart } = useCart();
+  const { items, updateQuantity, removeItem, clearCart } = useCart();
   const [pickupDate, setPickupDate] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -46,7 +45,6 @@ export default function CartPage() {
               <article key={item.slug} className="cart-item">
                 <div>
                   <h2>{item.name}</h2>
-                  <p>{formatPrice(item.priceCents)} each</p>
                 </div>
 
                 <div className="cart-item-actions">
@@ -73,11 +71,8 @@ export default function CartPage() {
             ))}
           </div>
 
-          <p className="cart-total">
-            <strong>Estimated total:</strong> {formatPrice(totalCents)}
-          </p>
           <p className="section-intro">
-            Final price will be confirmed on WhatsApp based on size and customization.
+            We will confirm pricing on WhatsApp based on size and customization.
           </p>
 
           <div className="checkout-form">

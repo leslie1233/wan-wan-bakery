@@ -31,8 +31,8 @@ export default function ProductsPage() {
 
       <h1>Our Bakery Menu</h1>
       <p className="section-intro">
-        All items are made to order. Prices are starting prices and may vary by
-        size or customization.
+        All items are made to order. Contact us on WhatsApp for pricing, size,
+        and customization options.
       </p>
 
       <div className="grid">

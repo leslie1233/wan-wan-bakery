@@ -23,7 +23,6 @@ export default function ProductCard({ product }: { product: Product }) {
           <h3>{product.name}</h3>
           <p>{product.description}</p>
           <p className="price-line">
-            <strong>{product.price}</strong>
             <span className="badge">{product.leadTime}</span>
           </p>
         </div>

@@ -29,7 +29,7 @@ export default function TrustSection() {
         </article>
         <article className="trust-card">
           <strong>Made to order</strong>
-          <p>Limited daily slots — order ahead for weekends and celebrations.</p>
+          <p>Limited daily slots — order 1–3 days in advance for all items.</p>
         </article>
         <article className="trust-card">
           <strong>Fast replies</strong>
