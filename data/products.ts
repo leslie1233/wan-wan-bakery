@@ -4,9 +4,11 @@ export type Product = {
   category: string;
   description: string;
   price: string;
+  priceCents: number;
   leadTime: string;
   image: string;
   highlights: string[];
+  updatedAt: string;
 };
 
 export const products: Product[] = [
@@ -16,10 +18,12 @@ export const products: Product[] = [
     category: "Bread",
     description:
       "Freshly baked garlic bread made with premium butter and aromatic garlic. Crispy on the outside and soft on the inside.",
-    price: "Contact for price",
+    price: "From $8",
+    priceCents: 800,
     leadTime: "Order in advance recommended",
     image: "/images/garlic-bread.jpg",
-    highlights: ["Freshly baked", "Garlic butter", "Perfect for sharing"]
+    highlights: ["Freshly baked", "Garlic butter", "Perfect for sharing"],
+    updatedAt: "2025-06-01",
   },
   {
     slug: "pandan-chiffon-cake",
@@ -27,10 +31,12 @@ export const products: Product[] = [
     category: "Cake",
     description:
       "Light, fluffy and fragrant pandan chiffon cake. A classic favourite suitable for family gatherings and celebrations.",
-    price: "Contact for price",
-    leadTime: "Order 1–3 days in advance recommended",
+    price: "From $28",
+    priceCents: 2800,
+    leadTime: "Order 1–3 days in advance",
     image: "/images/pandan-chiffon-cake.jpg",
-    highlights: ["Soft and fluffy", "Pandan flavour", "Family favourite"]
+    highlights: ["Soft and fluffy", "Pandan flavour", "Family favourite"],
+    updatedAt: "2025-06-01",
   },
   {
     slug: "cheese-cake",
@@ -38,9 +44,15 @@ export const products: Product[] = [
     category: "Cake",
     description:
       "Rich and creamy cheesecake with smooth texture and balanced sweetness. Suitable for birthdays and special occasions.",
-    price: "Contact for price",
-    leadTime: "Order 1–3 days in advance recommended",
+    price: "From $38",
+    priceCents: 3800,
+    leadTime: "Order 1–3 days in advance",
     image: "/images/cheese-cake.jpg",
-    highlights: ["Creamy texture", "Celebration cake", "Made to order"]
-  }
+    highlights: ["Creamy texture", "Celebration cake", "Made to order"],
+    updatedAt: "2025-06-01",
+  },
 ];
+
+export function getProductBySlug(slug: string): Product | undefined {
+  return products.find((product) => product.slug === slug);
+}

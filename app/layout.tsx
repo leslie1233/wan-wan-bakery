@@ -1,13 +1,23 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import Analytics from "../components/Analytics";
+import { CartProvider } from "../components/CartProvider";
+import FloatingWhatsApp from "../components/FloatingWhatsApp";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import JsonLd from "../components/JsonLd";
+import MobileBottomBar from "../components/MobileBottomBar";
+import { siteConfig } from "../lib/site-config";
+import { localBusinessJsonLd } from "../lib/structured-data";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title:
-    "Wan Wan Bakery | Garlic Bread, Pandan Chiffon Cake & Cheesecake Singapore",
-
-  description:
-    "Wan Wan Bakery in Singapore. Freshly baked garlic bread, pandan chiffon cake and cheesecake. WhatsApp 93855540.",
-
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default:
+      "Wan Wan Bakery | Garlic Bread, Pandan Chiffon Cake & Cheesecake Singapore",
+    template: "%s | Wan Wan Bakery",
+  },
+  description: siteConfig.description,
   keywords: [
     "Wan Wan Bakery",
     "Bakery Singapore",
@@ -16,15 +26,52 @@ export const metadata: Metadata = {
     "Cheesecake Singapore",
     "Fresh Bread Singapore",
     "Homemade Cake Singapore",
-    "Birthday Cake Singapore"
+    "Birthday Cake Singapore",
   ],
-
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Wan Wan Bakery",
-    description:
-      "Freshly baked garlic bread, pandan chiffon cake and cheesecake.",
-    type: "website"
-  }
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: "website",
+    images: [
+      {
+        url: "/images/banner.jpg",
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: ["/images/banner.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  icons: {
+    icon: [{ url: "/images/logo.jpg", type: "image/jpeg" }],
+    apple: [{ url: "/images/logo.jpg", type: "image/jpeg" }],
+  },
+  verification: siteConfig.googleSiteVerification
+    ? {
+        google: siteConfig.googleSiteVerification,
+      }
+    : undefined,
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#b85c38",
 };
 
 export default function RootLayout({
@@ -35,43 +82,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header className="header">
-          <div className="container nav">
-            <a className="logo logo-with-image" href="/">
-              <img
-                src="/images/logo.jpg"
-                alt="Wan Wan Bakery Logo"
-              />
-              <span>Wan Wan Bakery</span>
-            </a>
-
-            <nav className="navlinks">
-              <a href="/">Home</a>
-              <a href="/#products">Products</a>
-              <a href="/contact">Contact</a>
-            </nav>
-          </div>
-        </header>
-
-        {children}
-
-        <footer className="footer">
-          <div className="container">
-            <p>© {new Date().getFullYear()} Wan Wan Bakery</p>
-            <p>WhatsApp / Call: 93855540</p>
-          </div>
-        </footer>
-
-        <a
-          href="https://wa.me/6593855540?text=Hi%20Wan%20Wan%20Bakery%2C%20I%20would%20like%20to%20enquire%20about%20your%20bakery%20items."
-          className="floating-whatsapp"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-  💬 WhatsApp Us
-</a>
-
-
+        <CartProvider>
+          <JsonLd data={localBusinessJsonLd()} />
+          <Analytics />
+          <Header />
+          <div id="main-content">{children}</div>
+          <Footer />
+          <FloatingWhatsApp />
+          <MobileBottomBar />
+        </CartProvider>
       </body>
     </html>
   );

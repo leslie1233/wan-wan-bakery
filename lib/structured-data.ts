@@ -1,0 +1,117 @@
+import { products, type Product } from "../data/products";
+import { siteConfig } from "./site-config";
+
+export function localBusinessJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Bakery",
+    name: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    telephone: siteConfig.phoneE164,
+    image: `${siteConfig.url}/images/logo.jpg`,
+    priceRange: "$$",
+    servesCuisine: "Bakery",
+    areaServed: {
+      "@type": "Country",
+      name: "Singapore",
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: "09:00",
+        closes: "18:00",
+      },
+    ],
+    hasMenu: `${siteConfig.url}/products`,
+    potentialAction: {
+      "@type": "OrderAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `https://wa.me/${siteConfig.whatsappNumber}`,
+        actionPlatform: [
+          "http://schema.org/MobileWebPlatform",
+          "http://schema.org/DesktopWebPlatform",
+        ],
+      },
+      deliveryMethod: "http://purl.org/goodrelations/v1#DeliveryModePickUp",
+    },
+  };
+}
+
+export function productJsonLd(product: Product) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: `${siteConfig.url}${product.image}`,
+    category: product.category,
+    brand: {
+      "@type": "Brand",
+      name: siteConfig.name,
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: siteConfig.currency,
+      price: (product.priceCents / 100).toFixed(2),
+      availability: "https://schema.org/PreOrder",
+      url: `${siteConfig.url}/products/${product.slug}`,
+    },
+  };
+}
+
+export function breadcrumbJsonLd(
+  items: { name: string; path: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${siteConfig.url}${item.path}`,
+    })),
+  };
+}
+
+export function faqJsonLd(
+  entries: { question: string; answer: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: entries.map((entry) => ({
+      "@type": "Question",
+      name: entry.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: entry.answer,
+      },
+    })),
+  };
+}
+
+export function itemListJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${siteConfig.name} Products`,
+    itemListElement: products.map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: `${siteConfig.url}/products/${product.slug}`,
+      name: product.name,
+    })),
+  };
+}

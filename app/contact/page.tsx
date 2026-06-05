@@ -1,24 +1,63 @@
-import type { Metadata } from "next";
+import EnquiryForm from "../../components/EnquiryForm";
+import WhatsAppLink from "../../components/WhatsAppLink";
+import { createPageMetadata } from "../../lib/metadata";
+import { siteConfig } from "../../lib/site-config";
+import { buildWhatsAppUrl, generalEnquiryMessage } from "../../lib/whatsapp";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Contact Wan Wan Bakery",
-  description: "Contact Wan Wan Bakery at 93855540 for garlic bread, pandan chiffon cake, and cheese cake enquiries."
-};
+  description:
+    "Contact Wan Wan Bakery at 81571573 for garlic bread, pandan chiffon cake, and cheesecake enquiries in Singapore.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
-  const whatsapp = "https://wa.me/6593855540?text=Hi%20Wan%20Wan%20Bakery%2C%20I%20would%20like%20to%20enquire%20about%20your%20products.";
+  const whatsapp = buildWhatsAppUrl(generalEnquiryMessage());
 
   return (
-    <main className="container section">
+    <main className="container section page-main">
       <div className="contact-box">
         <h1>Contact Wan Wan Bakery</h1>
-        <p>For product availability, pricing, or order enquiry, contact us directly.</p>
-        <p><strong>Phone / WhatsApp:</strong> 93855540</p>
+        <p>
+          For product availability, pricing, or order enquiry, contact us directly.
+          We usually reply {siteConfig.replyTime}.
+        </p>
+        <p>
+          <strong>Phone / WhatsApp:</strong> {siteConfig.phone}
+        </p>
+        <p>
+          <strong>Pickup:</strong> {siteConfig.pickupArea}
+        </p>
+        <p>
+          <strong>Payment:</strong> {siteConfig.paymentMethods.join(", ")}
+        </p>
+
         <div className="cta">
-          <a className="button" href={whatsapp}>WhatsApp Us</a>
-          <a className="button secondary" href="tel:+6593855540">Call 93855540</a>
+          <WhatsAppLink
+            href={whatsapp}
+            className="button"
+            eventLabel="contact_whatsapp"
+          >
+            WhatsApp Us
+          </WhatsAppLink>
+          <a className="button secondary" href={`tel:${siteConfig.phoneE164}`}>
+            Call {siteConfig.phone}
+          </a>
         </div>
       </div>
+
+      <section className="section">
+        <h2>Structured Order Enquiry</h2>
+        <p className="section-intro">
+          Fill in the details below and we will open WhatsApp with your message
+          pre-filled.
+        </p>
+        <EnquiryForm />
+        <p className="section-intro">
+          We only collect the details you send for order enquiries and do not
+          share your information with third parties.
+        </p>
+      </section>
     </main>
   );
 }
