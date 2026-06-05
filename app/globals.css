@@ -149,6 +149,17 @@ textarea:focus-visible {
   color: var(--brand-dark);
 }
 
+.language-switcher select {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  color: var(--brand-dark);
+  font: inherit;
+  font-weight: 600;
+}
+
 .hero-banner {
   position: relative;
   width: 100%;

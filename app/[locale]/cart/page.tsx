@@ -2,13 +2,18 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useCart } from "../../components/CartProvider";
-import CartPromotionNote from "../../components/CartPromotionNote";
-import WhatsAppLink from "../../components/WhatsAppLink";
-import { buildWhatsAppUrl, cartOrderMessage } from "../../lib/whatsapp";
+import CartPromotionNote from "../../../components/CartPromotionNote";
+import { useCart } from "../../../components/CartProvider";
+import { useDictionary, useLocale } from "../../../components/LocaleProvider";
+import WhatsAppLink from "../../../components/WhatsAppLink";
+import { localePath } from "../../../lib/i18n/paths";
+import { buildWhatsAppUrl } from "../../../lib/whatsapp";
+import { cartOrderMessage } from "../../../lib/whatsapp-messages";
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart } = useCart();
+  const { locale } = useLocale();
+  const dict = useDictionary();
   const [pickupDate, setPickupDate] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -16,6 +21,7 @@ export default function CartPage() {
     items.length > 0
       ? buildWhatsAppUrl(
           cartOrderMessage(
+            dict,
             items.map((item) => ({
               name: item.name,
               quantity: item.quantity,
@@ -28,14 +34,14 @@ export default function CartPage() {
 
   return (
     <main className="container section page-main content-page">
-      <h1>Your Cart</h1>
+      <h1>{dict.cart.title}</h1>
 
       {items.length === 0 ? (
         <div className="contact-box">
-          <p>Your cart is empty. Browse our menu and add items to order.</p>
+          <p>{dict.cart.empty}</p>
           <div className="cta">
-            <Link className="button" href="/products">
-              View Products
+            <Link className="button" href={localePath(locale, "/products")}>
+              {dict.cart.viewProducts}
             </Link>
           </div>
         </div>
@@ -50,7 +56,7 @@ export default function CartPage() {
 
                 <div className="cart-item-actions">
                   <label>
-                    Qty
+                    {dict.cart.qty}
                     <input
                       type="number"
                       min="1"
@@ -65,7 +71,7 @@ export default function CartPage() {
                     className="text-button"
                     onClick={() => removeItem(item.slug)}
                   >
-                    Remove
+                    {dict.cart.remove}
                   </button>
                 </div>
               </article>
@@ -74,13 +80,11 @@ export default function CartPage() {
 
           <CartPromotionNote />
 
-          <p className="section-intro">
-            We will confirm pricing on WhatsApp based on size and customization.
-          </p>
+          <p className="section-intro">{dict.cart.pricingNote}</p>
 
           <div className="checkout-form">
             <label>
-              Preferred pickup date
+              {dict.cart.pickupDate}
               <input
                 type="date"
                 value={pickupDate}
@@ -88,12 +92,12 @@ export default function CartPage() {
               />
             </label>
             <label>
-              Notes
+              {dict.cart.notes}
               <textarea
                 rows={3}
                 value={notes}
                 onChange={(event) => setNotes(event.target.value)}
-                placeholder="Any special requests"
+                placeholder={dict.cart.notesPlaceholder}
               />
             </label>
           </div>
@@ -104,10 +108,10 @@ export default function CartPage() {
               className="button"
               eventLabel="cart_checkout_whatsapp"
             >
-              Send Order on WhatsApp
+              {dict.cart.sendOrder}
             </WhatsAppLink>
             <button type="button" className="button secondary" onClick={clearCart}>
-              Clear Cart
+              {dict.cart.clearCart}
             </button>
           </div>
         </>

@@ -3,30 +3,39 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { getLogoImage } from "../lib/i18n/images";
+import { localePath } from "../lib/i18n/paths";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useLocale } from "./LocaleProvider";
 import { useCart } from "./CartProvider";
-
-const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/products", label: "Products" },
-  { href: "/about", label: "About" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
-];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const { itemCount } = useCart();
+  const { locale, dict } = useLocale();
+
+  const navItems = [
+    { href: localePath(locale, "/"), label: dict.nav.home },
+    { href: localePath(locale, "/products"), label: dict.nav.products },
+    { href: localePath(locale, "/about"), label: dict.nav.about },
+    { href: localePath(locale, "/faq"), label: dict.nav.faq },
+    { href: localePath(locale, "/contact"), label: dict.nav.contact },
+  ];
 
   return (
     <header className="header">
       <a href="#main-content" className="skip-link">
-        Skip to content
+        {dict.nav.skipToContent}
       </a>
 
       <div className="container nav">
-        <Link className="logo logo-with-image" href="/" onClick={() => setOpen(false)}>
+        <Link
+          className="logo logo-with-image"
+          href={localePath(locale, "/")}
+          onClick={() => setOpen(false)}
+        >
           <Image
-            src="/images/logo.jpg"
+            src={getLogoImage()}
             alt="Wan Wan Bakery Logo"
             width={70}
             height={70}
@@ -42,7 +51,7 @@ export default function Header() {
           aria-controls="primary-navigation"
           onClick={() => setOpen((current) => !current)}
         >
-          <span className="sr-only">Toggle navigation</span>
+          <span className="sr-only">{dict.nav.toggleNav}</span>
           <span aria-hidden="true">{open ? "✕" : "☰"}</span>
         </button>
 
@@ -56,9 +65,15 @@ export default function Header() {
               {item.label}
             </Link>
           ))}
-          <Link href="/cart" className="cart-link" onClick={() => setOpen(false)}>
-            Cart{itemCount > 0 ? ` (${itemCount})` : ""}
+          <Link
+            href={localePath(locale, "/cart")}
+            className="cart-link"
+            onClick={() => setOpen(false)}
+          >
+            {dict.nav.cart}
+            {itemCount > 0 ? ` (${itemCount})` : ""}
           </Link>
+          <LanguageSwitcher />
         </nav>
       </div>
     </header>

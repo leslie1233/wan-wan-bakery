@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import { products } from "../data/products";
-import { openWhatsAppInNewTab } from "../lib/open-whatsapp";
-import { buildWhatsAppUrl, formEnquiryMessage } from "../lib/whatsapp";
+import { buildWhatsAppUrl } from "../lib/whatsapp";
+import { productEnquiryMessage } from "../lib/whatsapp-messages";
+import type { ProductSlug } from "../lib/i18n/types";
 import { trackEvent } from "./Analytics";
+import { useDictionary } from "./LocaleProvider";
 
 export default function EnquiryForm() {
+  const dict = useDictionary();
   const [productSlug, setProductSlug] = useState(products[0]?.slug ?? "");
   const [quantity, setQuantity] = useState("1");
   const [pickupDate, setPickupDate] = useState("");
@@ -14,6 +17,9 @@ export default function EnquiryForm() {
 
   const selectedProduct =
     products.find((product) => product.slug === productSlug) ?? products[0];
+  const productName = selectedProduct
+    ? dict.products[selectedProduct.slug as ProductSlug].name
+    : "";
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -22,39 +28,40 @@ export default function EnquiryForm() {
       return;
     }
 
-    const message = formEnquiryMessage(
-      selectedProduct.name,
-      quantity,
+    const message = productEnquiryMessage(
+      dict,
+      productName,
+      quantity ? Number(quantity) : undefined,
       pickupDate,
       notes
     );
 
     trackEvent("enquiry_form_submit", {
-      item_name: selectedProduct.name,
+      item_name: productName,
     });
 
-    openWhatsAppInNewTab(buildWhatsAppUrl(message));
+    window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
   }
 
   return (
     <form className="enquiry-form" onSubmit={handleSubmit}>
       <div className="form-grid">
         <label>
-          Product
+          {dict.contact.formProduct}
           <select
             value={productSlug}
             onChange={(event) => setProductSlug(event.target.value)}
           >
             {products.map((product) => (
               <option key={product.slug} value={product.slug}>
-                {product.name}
+                {dict.products[product.slug as ProductSlug].name}
               </option>
             ))}
           </select>
         </label>
 
         <label>
-          Quantity
+          {dict.contact.formQuantity}
           <input
             type="number"
             min="1"
@@ -64,7 +71,7 @@ export default function EnquiryForm() {
         </label>
 
         <label>
-          Preferred pickup date
+          {dict.contact.formPickupDate}
           <input
             type="date"
             value={pickupDate}
@@ -74,17 +81,17 @@ export default function EnquiryForm() {
       </div>
 
       <label>
-        Notes (size, flavour, occasion)
+        {dict.contact.formNotes}
         <textarea
           rows={4}
           value={notes}
           onChange={(event) => setNotes(event.target.value)}
-          placeholder="E.g. birthday cake for 8 people, less sweet if possible"
+          placeholder={dict.contact.formNotesPlaceholder}
         />
       </label>
 
       <button type="submit" className="button">
-        Send Enquiry on WhatsApp
+        {dict.contact.formSubmit}
       </button>
     </form>
   );

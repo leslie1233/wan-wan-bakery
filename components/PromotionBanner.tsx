@@ -1,4 +1,6 @@
-import { promotionTiers, promotionTitle } from "../data/promotions";
+"use client";
+
+import { useDictionary } from "./LocaleProvider";
 
 type PromotionBannerProps = {
   standalone?: boolean;
@@ -7,19 +9,20 @@ type PromotionBannerProps = {
 export default function PromotionBanner({
   standalone = false,
 }: PromotionBannerProps) {
+  const dict = useDictionary();
+
   const card = (
     <div className="promotion-card">
-      <p className="promotion-eyebrow">Special offer</p>
-      <h2>{promotionTitle}</h2>
-      <p className="promotion-intro">
-        Order more and save. Discount applies to total quantity across your order.
-      </p>
+      <p className="promotion-eyebrow">{dict.promotion.eyebrow}</p>
+      <h2>{dict.promotion.title}</h2>
+      <p className="promotion-intro">{dict.promotion.intro}</p>
       <ul className="promotion-list">
-        {promotionTiers.map((tier) => (
-          <li key={tier.minQuantity}>
-            <strong>{tier.label}</strong>
-          </li>
-        ))}
+        <li>
+          <strong>{dict.promotion.tier5}</strong>
+        </li>
+        <li>
+          <strong>{dict.promotion.tier10}</strong>
+        </li>
       </ul>
     </div>
   );

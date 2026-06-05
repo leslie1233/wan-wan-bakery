@@ -1,43 +1,60 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "../data/products";
-import { buildWhatsAppUrl, productEnquiryMessage } from "../lib/whatsapp";
+import { leadTimeBadges } from "../lib/i18n/lead-time";
+import { localePath } from "../lib/i18n/paths";
+import type { ProductSlug } from "../lib/i18n/types";
+import { buildWhatsAppUrl } from "../lib/whatsapp";
+import { productEnquiryMessage } from "../lib/whatsapp-messages";
+import { useLocale } from "./LocaleProvider";
 import WhatsAppLink from "./WhatsAppLink";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const whatsapp = buildWhatsAppUrl(productEnquiryMessage(product.name));
+  const { locale, dict } = useLocale();
+  const translation = dict.products[product.slug as ProductSlug];
+  const whatsapp = buildWhatsAppUrl(
+    productEnquiryMessage(dict, translation.name)
+  );
 
   return (
     <article className="card">
-      <Link href={`/products/${product.slug}`} aria-label={`View ${product.name}`}>
+      <Link
+        href={localePath(locale, `/products/${product.slug}`)}
+        aria-label={`View ${translation.name}`}
+      >
         <Image
           className="product-photo"
           src={product.image}
-          alt={product.name}
+          alt={translation.name}
           width={400}
           height={260}
         />
 
         <div className="card-content">
-          <p className="meta">{product.category}</p>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
+          <p className="meta">{translation.category}</p>
+          <h3>{translation.name}</h3>
+          <p>{translation.description}</p>
           <p className="price-line">
-            <span className="badge">{product.leadTime}</span>
+            <span className="badge">{leadTimeBadges[locale]}</span>
           </p>
         </div>
       </Link>
 
       <div className="card-actions">
-        <Link className="button secondary" href={`/products/${product.slug}`}>
-          View Details
+        <Link
+          className="button secondary"
+          href={localePath(locale, `/products/${product.slug}`)}
+        >
+          {dict.productsPage.viewDetails}
         </Link>
         <WhatsAppLink
           href={whatsapp}
           className="button"
           eventLabel={`card_whatsapp_${product.slug}`}
         >
-          Order via WhatsApp
+          {dict.productsPage.orderWhatsApp}
         </WhatsAppLink>
       </div>
     </article>

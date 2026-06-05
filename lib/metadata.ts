@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { localizedPath, type Locale } from "./i18n/locales";
 import { siteConfig } from "./site-config";
 
 export function createPageMetadata({
@@ -6,19 +7,22 @@ export function createPageMetadata({
   description,
   path = "/",
   image = "/images/banner.jpg",
+  locale = "en",
 }: {
   title: string;
   description: string;
   path?: string;
   image?: string;
+  locale?: Locale;
 }): Metadata {
-  const url = `${siteConfig.url}${path}`;
+  const localized = localizedPath(locale, path);
+  const url = `${siteConfig.url}${localized}`;
 
   return {
     title,
     description,
     alternates: {
-      canonical: path,
+      canonical: localized,
     },
     openGraph: {
       title,
