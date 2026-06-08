@@ -3,7 +3,20 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { isDatabaseConfigured, prisma } from "./db";
 
+function getAuthSecret(): string {
+  if (process.env.AUTH_SECRET) {
+    return process.env.AUTH_SECRET;
+  }
+
+  if (process.env.NODE_ENV === "development") {
+    return "wan-wan-bakery-local-dev-secret";
+  }
+
+  throw new Error("AUTH_SECRET environment variable is required.");
+}
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  secret: getAuthSecret(),
   trustHost: true,
   providers: [
     Credentials({
