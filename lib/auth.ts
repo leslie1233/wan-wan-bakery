@@ -13,10 +13,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!isDatabaseConfigured()) {
-          return null;
-        }
-
         const email = credentials?.email?.toString().trim().toLowerCase();
         const password = credentials?.password?.toString();
 
@@ -24,19 +20,39 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null;
         }
 
-        const user = await prisma.user.findUnique({ where: { email } });
+        const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+        const adminPassword = process.env.ADMIN_PASSWORD;
 
-        if (!user) {
+        if (
+          adminEmail &&
+          adminPassword &&
+          email === adminEmail &&
+          password === adminPassword
+        ) {
+          return { id: "env-admin", email: adminEmail };
+        }
+
+        if (!isDatabaseConfigured()) {
           return null;
         }
 
-        const valid = await bcrypt.compare(password, user.passwordHash);
+        try {
+          const user = await prisma.user.findUnique({ where: { email } });
 
-        if (!valid) {
+          if (!user) {
+            return null;
+          }
+
+          const valid = await bcrypt.compare(password, user.passwordHash);
+
+          if (!valid) {
+            return null;
+          }
+
+          return { id: user.id, email: user.email };
+        } catch {
           return null;
         }
-
-        return { id: user.id, email: user.email };
       },
     }),
   ],
