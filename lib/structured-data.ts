@@ -1,4 +1,5 @@
-import { products, type Product } from "../data/products";
+import type { CatalogProduct } from "./catalog-types";
+import { localizedPath, type Locale } from "./i18n/locales";
 import { siteConfig } from "./site-config";
 
 export function localBusinessJsonLd() {
@@ -47,7 +48,7 @@ export function localBusinessJsonLd() {
   };
 }
 
-export function productJsonLd(product: Product) {
+export function productJsonLd(product: CatalogProduct, locale: Locale) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -62,7 +63,7 @@ export function productJsonLd(product: Product) {
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/PreOrder",
-      url: `${siteConfig.url}/products/${product.slug}`,
+      url: `${siteConfig.url}${localizedPath(locale, `/products/${product.slug}`)}`,
     },
   };
 }
@@ -99,7 +100,7 @@ export function faqJsonLd(
   };
 }
 
-export function itemListJsonLd() {
+export function itemListJsonLd(products: CatalogProduct[], locale: Locale) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -107,7 +108,7 @@ export function itemListJsonLd() {
     itemListElement: products.map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      url: `${siteConfig.url}/products/${product.slug}`,
+      url: `${siteConfig.url}${localizedPath(locale, `/products/${product.slug}`)}`,
       name: product.name,
     })),
   };

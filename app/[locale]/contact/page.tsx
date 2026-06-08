@@ -1,5 +1,6 @@
 import EnquiryForm from "../../../components/EnquiryForm";
 import WhatsAppLink from "../../../components/WhatsAppLink";
+import { getCatalogProducts } from "../../../lib/catalog";
 import { getDictionary } from "../../../lib/i18n/get-dictionary";
 import { isLocale, type Locale } from "../../../lib/i18n/locales";
 import { createPageMetadata } from "../../../lib/metadata";
@@ -28,7 +29,7 @@ export function generateMetadata({
   });
 }
 
-export default function ContactPage({
+export default async function ContactPage({
   params,
 }: {
   params: { locale: string };
@@ -37,7 +38,9 @@ export default function ContactPage({
     notFound();
   }
 
-  const dict = getDictionary(params.locale as Locale);
+  const locale = params.locale as Locale;
+  const dict = getDictionary(locale);
+  const products = await getCatalogProducts(locale);
   const whatsapp = buildWhatsAppUrl(generalEnquiryMessage(dict));
 
   return (
@@ -73,7 +76,7 @@ export default function ContactPage({
       <section className="section">
         <h2>{dict.contact.enquiryTitle}</h2>
         <p className="section-intro">{dict.contact.enquiryIntro}</p>
-        <EnquiryForm />
+        <EnquiryForm products={products} />
         <p className="section-intro">{dict.contact.privacy}</p>
       </section>
     </main>

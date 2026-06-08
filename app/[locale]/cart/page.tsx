@@ -1,11 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useState } from "react";
 import CartPromotionNote from "../../../components/CartPromotionNote";
 import { useCart } from "../../../components/CartProvider";
 import { useDictionary, useLocale } from "../../../components/LocaleProvider";
 import WhatsAppLink from "../../../components/WhatsAppLink";
+import type { PromotionView } from "../../../lib/catalog-types";
 import { localePath } from "../../../lib/i18n/paths";
 import { buildWhatsAppUrl } from "../../../lib/whatsapp";
 import { cartOrderMessage } from "../../../lib/whatsapp-messages";
@@ -16,6 +17,14 @@ export default function CartPage() {
   const dict = useDictionary();
   const [pickupDate, setPickupDate] = useState("");
   const [notes, setNotes] = useState("");
+  const [promotion, setPromotion] = useState<PromotionView | null>(null);
+
+  useEffect(() => {
+    fetch(`/api/promotions?locale=${locale}`)
+      .then((response) => response.json())
+      .then((data) => setPromotion(data.promotion))
+      .catch(() => setPromotion(null));
+  }, [locale]);
 
   const whatsapp =
     items.length > 0
@@ -26,6 +35,10 @@ export default function CartPage() {
               name: item.name,
               quantity: item.quantity,
             })),
+            promotion?.tiers.map((tier) => ({
+              minQuantity: tier.minQuantity,
+              label: tier.label,
+            })) ?? [],
             pickupDate,
             notes
           )

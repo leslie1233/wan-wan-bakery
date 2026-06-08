@@ -4,4 +4,6 @@ node_modules_backup/
 next_backup/
 .env
 .env.local
+prisma/dev.db
+prisma/dev.db-journal
 public/Images Temp/

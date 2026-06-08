@@ -1,19 +1,20 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import FacebookShareLink from "../../components/FacebookShareLink";
 import HeroBanner from "../../components/HeroBanner";
 import ProductCard from "../../components/ProductCard";
 import PromotionBanner from "../../components/PromotionBanner";
 import TrustSection from "../../components/TrustSection";
 import WhatsAppLink from "../../components/WhatsAppLink";
-import { products } from "../../data/products";
+import { getCatalogProducts } from "../../lib/catalog";
 import { getDictionary } from "../../lib/i18n/get-dictionary";
 import { isLocale, type Locale } from "../../lib/i18n/locales";
 import { localePath } from "../../lib/i18n/paths";
 import { createPageMetadata } from "../../lib/metadata";
+import { getPromotionView } from "../../lib/promotion-store";
 import { siteConfig } from "../../lib/site-config";
 import { buildWhatsAppUrl } from "../../lib/whatsapp";
 import { generalEnquiryMessage } from "../../lib/whatsapp-messages";
-import { notFound } from "next/navigation";
 
 export function generateMetadata({
   params,
@@ -35,7 +36,7 @@ export function generateMetadata({
   });
 }
 
-export default function HomePage({
+export default async function HomePage({
   params,
 }: {
   params: { locale: string };
@@ -46,6 +47,10 @@ export default function HomePage({
 
   const locale = params.locale as Locale;
   const dict = getDictionary(locale);
+  const [products, promotion] = await Promise.all([
+    getCatalogProducts(locale),
+    getPromotionView(locale),
+  ]);
   const whatsapp = buildWhatsAppUrl(generalEnquiryMessage(dict));
 
   return (
@@ -75,7 +80,7 @@ export default function HomePage({
         </div>
       </section>
 
-      <PromotionBanner standalone />
+      <PromotionBanner promotion={promotion} standalone />
 
       <section id="products" className="container section">
         <h2>{dict.home.productsTitle}</h2>

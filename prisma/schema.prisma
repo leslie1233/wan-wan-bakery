@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Product {
+  id           String               @id @default(cuid())
+  slug         String               @unique
+  image        String
+  priceCents   Int                  @default(0)
+  published    Boolean              @default(true)
+  sortOrder    Int                  @default(0)
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  translations ProductTranslation[]
+}
+
+model ProductTranslation {
+  id          String  @id @default(cuid())
+  productId   String
+  locale      String
+  name        String
+  category    String
+  description String
+  highlights  String
+  product     Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, locale])
+}
+
+model PromotionSettings {
+  id           String                 @id @default("default")
+  active       Boolean                @default(true)
+  updatedAt    DateTime               @updatedAt
+  translations PromotionTranslation[]
+  tiers        PromotionTier[]
+}
+
+model PromotionTranslation {
+  id         String            @id @default(cuid())
+  settingsId String            @default("default")
+  locale     String
+  eyebrow    String
+  title      String
+  intro      String
+  cartHint   String
+  settings   PromotionSettings @relation(fields: [settingsId], references: [id], onDelete: Cascade)
+
+  @@unique([settingsId, locale])
+}
+
+model PromotionTier {
+  id              String                    @id @default(cuid())
+  settingsId      String                    @default("default")
+  minQuantity     Int
+  discountPercent Int
+  sortOrder       Int                       @default(0)
+  settings        PromotionSettings         @relation(fields: [settingsId], references: [id], onDelete: Cascade)
+  translations    PromotionTierTranslation[]
+}
+
+model PromotionTierTranslation {
+  id     String        @id @default(cuid())
+  tierId String
+  locale String
+  label  String
+  tier   PromotionTier @relation(fields: [tierId], references: [id], onDelete: Cascade)
+
+  @@unique([tierId, locale])
+}

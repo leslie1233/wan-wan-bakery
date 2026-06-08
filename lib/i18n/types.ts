@@ -1,4 +1,4 @@
-export type ProductSlug = "garlic-bread" | "pandan-chiffon-cake" | "cheese-cake";
+export type ProductSlug = string;
 
 export type FaqItem = {
   question: string;

@@ -33,16 +33,16 @@ export function productEnquiryMessage(
 export function cartOrderMessage(
   dict: Dictionary,
   items: OrderLine[],
+  promotionTiers: { minQuantity: number; label: string }[],
   pickupDate?: string,
   notes?: string
 ): string {
   const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
+  const sortedTiers = [...promotionTiers].sort(
+    (left, right) => right.minQuantity - left.minQuantity
+  );
   const promotionLabel =
-    totalQuantity >= 10
-      ? dict.promotion.tier10
-      : totalQuantity >= 5
-        ? dict.promotion.tier5
-        : null;
+    sortedTiers.find((tier) => totalQuantity >= tier.minQuantity)?.label ?? null;
 
   const lines = [
     dict.whatsapp.placeOrder,

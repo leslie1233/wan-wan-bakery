@@ -1,14 +1,15 @@
+import { notFound } from "next/navigation";
 import ProductCard from "../../../components/ProductCard";
 import PromotionBanner from "../../../components/PromotionBanner";
 import Breadcrumbs from "../../../components/Breadcrumbs";
 import JsonLd from "../../../components/JsonLd";
-import { products } from "../../../data/products";
+import { getCatalogProducts } from "../../../lib/catalog";
 import { getDictionary } from "../../../lib/i18n/get-dictionary";
 import { isLocale, type Locale } from "../../../lib/i18n/locales";
 import { localePath } from "../../../lib/i18n/paths";
 import { createPageMetadata } from "../../../lib/metadata";
+import { getPromotionView } from "../../../lib/promotion-store";
 import { breadcrumbJsonLd, itemListJsonLd } from "../../../lib/structured-data";
-import { notFound } from "next/navigation";
 
 export function generateMetadata({
   params,
@@ -30,7 +31,7 @@ export function generateMetadata({
   });
 }
 
-export default function ProductsPage({
+export default async function ProductsPage({
   params,
 }: {
   params: { locale: string };
@@ -41,6 +42,10 @@ export default function ProductsPage({
 
   const locale = params.locale as Locale;
   const dict = getDictionary(locale);
+  const [products, promotion] = await Promise.all([
+    getCatalogProducts(locale),
+    getPromotionView(locale),
+  ]);
 
   return (
     <main className="container section page-main">
@@ -50,7 +55,7 @@ export default function ProductsPage({
           { label: dict.nav.products },
         ]}
       />
-      <JsonLd data={itemListJsonLd()} />
+      <JsonLd data={itemListJsonLd(products, locale)} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: dict.nav.home, path: localePath(locale, "/") },
@@ -58,7 +63,7 @@ export default function ProductsPage({
         ])}
       />
 
-      <PromotionBanner />
+      <PromotionBanner promotion={promotion} />
 
       <h1>{dict.productsPage.title}</h1>
       <p className="section-intro">{dict.productsPage.intro}</p>

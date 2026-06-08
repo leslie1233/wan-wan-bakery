@@ -1,16 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import type { Product } from "../data/products";
-import type { ProductSlug } from "../lib/i18n/types";
+import type { CatalogProduct } from "../lib/catalog-types";
 import { useDictionary } from "./LocaleProvider";
 import { useCart } from "./CartProvider";
 import { trackEvent } from "./Analytics";
 
-export default function AddToCartButton({ product }: { product: Product }) {
+export default function AddToCartButton({ product }: { product: CatalogProduct }) {
   const { addItem } = useCart();
   const dict = useDictionary();
-  const translation = dict.products[product.slug as ProductSlug];
   const [added, setAdded] = useState(false);
 
   return (
@@ -20,11 +18,11 @@ export default function AddToCartButton({ product }: { product: Product }) {
       onClick={() => {
         addItem({
           slug: product.slug,
-          name: translation.name,
+          name: product.name,
           priceCents: product.priceCents,
         });
         trackEvent("add_to_cart", {
-          item_name: translation.name,
+          item_name: product.name,
         });
         setAdded(true);
         window.setTimeout(() => setAdded(false), 1800);

@@ -7,13 +7,16 @@ import FacebookShareLink from "../../../../components/FacebookShareLink";
 import JsonLd from "../../../../components/JsonLd";
 import PromotionBanner from "../../../../components/PromotionBanner";
 import WhatsAppLink from "../../../../components/WhatsAppLink";
-import { getProductBySlug, products } from "../../../../data/products";
+import {
+  getAllProductSlugs,
+  getCatalogProduct,
+} from "../../../../lib/catalog";
 import { getDictionary } from "../../../../lib/i18n/get-dictionary";
 import { leadTimeBadges } from "../../../../lib/i18n/lead-time";
-import { isLocale, type Locale } from "../../../../lib/i18n/locales";
+import { isLocale, locales, type Locale } from "../../../../lib/i18n/locales";
 import { localePath } from "../../../../lib/i18n/paths";
-import type { ProductSlug } from "../../../../lib/i18n/types";
 import { createPageMetadata } from "../../../../lib/metadata";
+import { getPromotionView } from "../../../../lib/promotion-store";
 import {
   breadcrumbJsonLd,
   productJsonLd,
@@ -24,18 +27,18 @@ import {
   productQuestionMessage,
 } from "../../../../lib/whatsapp-messages";
 
-export function generateStaticParams() {
-  return products.flatMap((product) =>
-    ["en", "zh", "ko", "ja", "es", "fr", "id", "ta", "ms", "fil", "th"].map(
-      (locale) => ({
-        locale,
-        slug: product.slug,
-      })
-    )
+export async function generateStaticParams() {
+  const slugs = await getAllProductSlugs();
+
+  return slugs.flatMap((slug) =>
+    locales.map((locale) => ({
+      locale,
+      slug,
+    }))
   );
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: { locale: string; slug: string };
@@ -46,7 +49,7 @@ export function generateMetadata({
 
   const locale = params.locale as Locale;
   const dict = getDictionary(locale);
-  const product = getProductBySlug(params.slug);
+  const product = await getCatalogProduct(params.slug, locale);
 
   if (!product) {
     return {
@@ -55,18 +58,16 @@ export function generateMetadata({
     };
   }
 
-  const translation = dict.products[product.slug as ProductSlug];
-
   return createPageMetadata({
-    title: `${translation.name} Singapore`,
-    description: `${translation.description} ${leadTimeBadges[locale]}. Order from Wan Wan Bakery Singapore.`,
+    title: `${product.name} Singapore`,
+    description: `${product.description} ${leadTimeBadges[locale]}. Order from Wan Wan Bakery Singapore.`,
     path: `/products/${product.slug}`,
     image: product.image,
     locale,
   });
 }
 
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
   params,
 }: {
   params: { locale: string; slug: string };
@@ -77,18 +78,20 @@ export default function ProductDetailPage({
 
   const locale = params.locale as Locale;
   const dict = getDictionary(locale);
-  const product = getProductBySlug(params.slug);
+  const [product, promotion] = await Promise.all([
+    getCatalogProduct(params.slug, locale),
+    getPromotionView(locale),
+  ]);
 
   if (!product) {
     notFound();
   }
 
-  const translation = dict.products[product.slug as ProductSlug];
   const whatsappOrder = buildWhatsAppUrl(
-    productEnquiryMessage(dict, translation.name)
+    productEnquiryMessage(dict, product.name)
   );
   const whatsappQuestion = buildWhatsAppUrl(
-    productQuestionMessage(dict, translation.name)
+    productQuestionMessage(dict, product.name)
   );
 
   return (
@@ -97,28 +100,28 @@ export default function ProductDetailPage({
         items={[
           { label: dict.nav.home, href: localePath(locale, "/") },
           { label: dict.nav.products, href: localePath(locale, "/products") },
-          { label: translation.name },
+          { label: product.name },
         ]}
       />
-      <JsonLd data={productJsonLd(product)} />
+      <JsonLd data={productJsonLd(product, locale)} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: dict.nav.home, path: localePath(locale, "/") },
           { name: dict.nav.products, path: localePath(locale, "/products") },
           {
-            name: translation.name,
+            name: product.name,
             path: localePath(locale, `/products/${product.slug}`),
           },
         ])}
       />
 
-      <PromotionBanner />
+      <PromotionBanner promotion={promotion} />
 
       <div className="detail">
         <div className="detail-image">
           <Image
             src={product.image}
-            alt={translation.name}
+            alt={product.name}
             width={720}
             height={720}
             className="detail-product-image"
@@ -127,10 +130,10 @@ export default function ProductDetailPage({
         </div>
 
         <div>
-          <p className="meta">{translation.category}</p>
-          <h1>{translation.name}</h1>
+          <p className="meta">{product.category}</p>
+          <h1>{product.name}</h1>
 
-          <p>{translation.description}</p>
+          <p>{product.description}</p>
 
           <p>
             <strong>{dict.productsPage.leadTime}</strong> {leadTimeBadges[locale]}
@@ -141,7 +144,7 @@ export default function ProductDetailPage({
           <h2>{dict.productsPage.highlights}</h2>
 
           <ul className="list">
-            {translation.highlights.map((highlight) => (
+            {product.highlights.map((highlight) => (
               <li key={highlight}>{highlight}</li>
             ))}
           </ul>

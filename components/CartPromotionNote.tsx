@@ -1,31 +1,37 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { getCartItemCount } from "../lib/cart";
-import { useDictionary } from "./LocaleProvider";
+import type { PromotionView } from "../lib/catalog-types";
+import { getApplicableTier } from "../lib/promotion-store";
+import { useLocale } from "./LocaleProvider";
 import { useCart } from "./CartProvider";
 
 export default function CartPromotionNote() {
   const { items } = useCart();
-  const dict = useDictionary();
+  const { locale } = useLocale();
+  const [promotion, setPromotion] = useState<PromotionView | null>(null);
   const totalQuantity = getCartItemCount(items);
 
-  if (totalQuantity === 0) {
+  useEffect(() => {
+    fetch(`/api/promotions?locale=${locale}`)
+      .then((response) => response.json())
+      .then((data) => setPromotion(data.promotion))
+      .catch(() => setPromotion(null));
+  }, [locale]);
+
+  if (totalQuantity === 0 || !promotion?.active) {
     return null;
   }
 
-  const promotionLabel =
-    totalQuantity >= 10
-      ? dict.promotion.tier10
-      : totalQuantity >= 5
-        ? dict.promotion.tier5
-        : null;
-  const message = promotionLabel
-    ? dict.promotion.cartQualified.replace("{{label}}", promotionLabel)
-    : dict.promotion.cartHint;
+  const tier = getApplicableTier(promotion.tiers, totalQuantity);
+  const message = tier
+    ? `${tier.label} applies to your order.`
+    : promotion.cartHint;
 
   return (
     <p className="promotion-note">
-      <strong>{dict.promotion.title}:</strong> {message}
+      <strong>{promotion.title}:</strong> {message}
     </p>
   );
 }

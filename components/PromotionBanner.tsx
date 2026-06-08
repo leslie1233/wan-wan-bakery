@@ -1,28 +1,29 @@
-"use client";
-
-import { useDictionary } from "./LocaleProvider";
+import type { PromotionView } from "../lib/catalog-types";
 
 type PromotionBannerProps = {
+  promotion: PromotionView;
   standalone?: boolean;
 };
 
 export default function PromotionBanner({
+  promotion,
   standalone = false,
 }: PromotionBannerProps) {
-  const dict = useDictionary();
+  if (!promotion.active) {
+    return null;
+  }
 
   const card = (
     <div className="promotion-card">
-      <p className="promotion-eyebrow">{dict.promotion.eyebrow}</p>
-      <h2>{dict.promotion.title}</h2>
-      <p className="promotion-intro">{dict.promotion.intro}</p>
+      <p className="promotion-eyebrow">{promotion.eyebrow}</p>
+      <h2>{promotion.title}</h2>
+      <p className="promotion-intro">{promotion.intro}</p>
       <ul className="promotion-list">
-        <li>
-          <strong>{dict.promotion.tier5}</strong>
-        </li>
-        <li>
-          <strong>{dict.promotion.tier10}</strong>
-        </li>
+        {promotion.tiers.map((tier) => (
+          <li key={`${tier.minQuantity}-${tier.discountPercent}`}>
+            <strong>{tier.label}</strong>
+          </li>
+        ))}
       </ul>
     </div>
   );

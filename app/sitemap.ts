@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { products } from "../data/products";
+import { getAllProductSlugs } from "../lib/catalog";
 import { locales, localizedPath } from "../lib/i18n/locales";
 import { siteConfig } from "../lib/site-config";
 
@@ -11,7 +11,9 @@ const staticPages = [
   { path: "/contact", priority: 0.8, changeFrequency: "monthly" as const },
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const slugs = await getAllProductSlugs();
+
   return locales.flatMap((locale) => [
     ...staticPages.map((page) => ({
       url: `${siteConfig.url}${localizedPath(locale, page.path)}`,
@@ -19,9 +21,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: page.changeFrequency,
       priority: page.priority,
     })),
-    ...products.map((product) => ({
-      url: `${siteConfig.url}${localizedPath(locale, `/products/${product.slug}`)}`,
-      lastModified: product.updatedAt,
+    ...slugs.map((slug) => ({
+      url: `${siteConfig.url}${localizedPath(locale, `/products/${slug}`)}`,
+      lastModified: siteConfig.lastContentUpdate,
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),
