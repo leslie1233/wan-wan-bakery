@@ -9,7 +9,10 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "db:push": "prisma db push",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:push:prod": "dotenv -e .env.production -- prisma db push",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:seed:prod": "dotenv -e .env.production -- tsx prisma/seed.ts",
+    "db:create-dev": "dotenv -e .env.production -- node scripts/create-dev-database.mjs"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -27,6 +30,7 @@
     "@types/node": "20.14.10",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
+    "dotenv-cli": "^11.0.0",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
     "prisma": "^5.22.0",
