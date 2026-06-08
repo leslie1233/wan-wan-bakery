@@ -17,6 +17,7 @@ import { isLocale, locales, type Locale } from "../../../../lib/i18n/locales";
 import { localePath } from "../../../../lib/i18n/paths";
 import { createPageMetadata } from "../../../../lib/metadata";
 import { getPromotionView } from "../../../../lib/promotion-store";
+import { getSiteSettings } from "../../../../lib/site-settings";
 import {
   breadcrumbJsonLd,
   productJsonLd,
@@ -78,9 +79,10 @@ export default async function ProductDetailPage({
 
   const locale = params.locale as Locale;
   const dict = getDictionary(locale);
-  const [product, promotion] = await Promise.all([
+  const [product, promotion, contact] = await Promise.all([
     getCatalogProduct(params.slug, locale),
     getPromotionView(locale),
+    getSiteSettings(),
   ]);
 
   if (!product) {
@@ -88,10 +90,12 @@ export default async function ProductDetailPage({
   }
 
   const whatsappOrder = buildWhatsAppUrl(
-    productEnquiryMessage(dict, product.name)
+    productEnquiryMessage(dict, product.name),
+    contact.whatsappNumber
   );
   const whatsappQuestion = buildWhatsAppUrl(
-    productQuestionMessage(dict, product.name)
+    productQuestionMessage(dict, product.name),
+    contact.whatsappNumber
   );
 
   return (

@@ -4,6 +4,8 @@ import { getCatalogProducts } from "../../../lib/catalog";
 import { getDictionary } from "../../../lib/i18n/get-dictionary";
 import { isLocale, type Locale } from "../../../lib/i18n/locales";
 import { createPageMetadata } from "../../../lib/metadata";
+import { formatCallLabel } from "../../../lib/phone";
+import { getSiteSettings } from "../../../lib/site-settings";
 import { siteConfig } from "../../../lib/site-config";
 import { buildWhatsAppUrl } from "../../../lib/whatsapp";
 import { generalEnquiryMessage } from "../../../lib/whatsapp-messages";
@@ -40,8 +42,14 @@ export default async function ContactPage({
 
   const locale = params.locale as Locale;
   const dict = getDictionary(locale);
-  const products = await getCatalogProducts(locale);
-  const whatsapp = buildWhatsAppUrl(generalEnquiryMessage(dict));
+  const [products, contact] = await Promise.all([
+    getCatalogProducts(locale),
+    getSiteSettings(),
+  ]);
+  const whatsapp = buildWhatsAppUrl(
+    generalEnquiryMessage(dict),
+    contact.whatsappNumber
+  );
 
   return (
     <main className="container section page-main">
@@ -49,7 +57,7 @@ export default async function ContactPage({
         <h1>{dict.contact.title}</h1>
         <p>{dict.contact.intro}</p>
         <p>
-          <strong>{dict.contact.phone}</strong> {siteConfig.phone}
+          <strong>{dict.contact.phone}</strong> {contact.phone}
         </p>
         <p>
           <strong>{dict.contact.pickup}</strong> {siteConfig.pickupArea}
@@ -67,8 +75,8 @@ export default async function ContactPage({
           >
             {dict.contact.whatsappUs}
           </WhatsAppLink>
-          <a className="button secondary" href={`tel:${siteConfig.phoneE164}`}>
-            {dict.contact.call}
+          <a className="button secondary" href={`tel:${contact.phoneE164}`}>
+            {formatCallLabel(dict.contact.call, contact.phone)}
           </a>
         </div>
       </div>

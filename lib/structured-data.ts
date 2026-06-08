@@ -1,15 +1,22 @@
 import type { CatalogProduct } from "./catalog-types";
 import { localizedPath, type Locale } from "./i18n/locales";
+import type { SiteContactSettings } from "./phone";
 import { siteConfig } from "./site-config";
 
-export function localBusinessJsonLd() {
+export function localBusinessJsonLd(settings?: SiteContactSettings) {
+  const contact = settings ?? {
+    phone: siteConfig.phone,
+    phoneE164: siteConfig.phoneE164,
+    whatsappNumber: siteConfig.whatsappNumber,
+  };
+
   return {
     "@context": "https://schema.org",
     "@type": "Bakery",
     name: siteConfig.name,
     description: siteConfig.description,
     url: siteConfig.url,
-    telephone: siteConfig.phoneE164,
+    telephone: contact.phoneE164,
     image: `${siteConfig.url}/images/logo.jpg`,
     servesCuisine: "Bakery",
     areaServed: {
@@ -37,7 +44,7 @@ export function localBusinessJsonLd() {
       "@type": "OrderAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `https://wa.me/${siteConfig.whatsappNumber}`,
+        urlTemplate: `https://wa.me/${contact.whatsappNumber}`,
         actionPlatform: [
           "http://schema.org/MobileWebPlatform",
           "http://schema.org/DesktopWebPlatform",

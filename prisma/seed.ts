@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { products } from "../data/products";
+import { siteConfig } from "../lib/site-config";
 import { getDictionary } from "../lib/i18n/get-dictionary";
 import { locales } from "../lib/i18n/locales";
 
@@ -135,6 +136,21 @@ async function main() {
       });
     }
   }
+
+  await prisma.siteSettings.upsert({
+    where: { id: "default" },
+    update: {
+      phone: siteConfig.phone,
+      phoneE164: siteConfig.phoneE164,
+      whatsappNumber: siteConfig.whatsappNumber,
+    },
+    create: {
+      id: "default",
+      phone: siteConfig.phone,
+      phoneE164: siteConfig.phoneE164,
+      whatsappNumber: siteConfig.whatsappNumber,
+    },
+  });
 
   console.log(`Seeded admin user: ${adminEmail}`);
   console.log(`Default password: ${adminPassword}`);

@@ -1,17 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { formatCallLabel } from "../lib/phone";
 import { siteConfig } from "../lib/site-config";
 import { localePath } from "../lib/i18n/paths";
 import FacebookShareLink from "./FacebookShareLink";
 import { useLocale } from "./LocaleProvider";
+import { useSiteSettings } from "./SiteSettingsProvider";
 import WhatsAppLink from "./WhatsAppLink";
 import { buildWhatsAppUrl } from "../lib/whatsapp";
 import { generalEnquiryMessage } from "../lib/whatsapp-messages";
 
 export default function Footer() {
   const { locale, dict } = useLocale();
-  const whatsapp = buildWhatsAppUrl(generalEnquiryMessage(dict));
+  const contact = useSiteSettings();
+  const whatsapp = buildWhatsAppUrl(
+    generalEnquiryMessage(dict),
+    contact.whatsappNumber
+  );
 
   return (
     <footer className="footer">
@@ -46,7 +52,7 @@ export default function Footer() {
         <div>
           <h3>{dict.footer.orderWithUs}</h3>
           <p>
-            <strong>{dict.footer.phone}</strong> {siteConfig.phone}
+            <strong>{dict.footer.phone}</strong> {contact.phone}
           </p>
           <p>
             <strong>{dict.footer.pickup}</strong> {siteConfig.pickupArea}
@@ -63,8 +69,8 @@ export default function Footer() {
             >
               {dict.footer.whatsappUs}
             </WhatsAppLink>
-            <a className="button secondary" href={`tel:${siteConfig.phoneE164}`}>
-              {dict.footer.call}
+            <a className="button secondary" href={`tel:${contact.phoneE164}`}>
+              {formatCallLabel(dict.footer.call, contact.phone)}
             </a>
           </div>
         </div>

@@ -16,6 +16,7 @@ export default function AdminNav({ email }: AdminNavProps) {
         <nav className="admin-nav" aria-label="Admin navigation">
           <Link href="/admin/products">Catalog</Link>
           <Link href="/admin/promotions">Promotions</Link>
+          <Link href="/admin/settings">Phone</Link>
           <Link href="/en" target="_blank" rel="noreferrer">
             View site
           </Link>

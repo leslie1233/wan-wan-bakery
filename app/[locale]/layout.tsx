@@ -8,12 +8,14 @@ import JsonLd from "../../components/JsonLd";
 import LocaleHtmlLang from "../../components/LocaleHtmlLang";
 import { LocaleProvider } from "../../components/LocaleProvider";
 import MobileBottomBar from "../../components/MobileBottomBar";
+import { SiteSettingsProvider } from "../../components/SiteSettingsProvider";
 import { getDictionary } from "../../lib/i18n/get-dictionary";
 import {
   isLocale,
   localeHtmlLang,
   type Locale,
 } from "../../lib/i18n/locales";
+import { getSiteSettings } from "../../lib/site-settings";
 import { localBusinessJsonLd } from "../../lib/structured-data";
 
 export function generateStaticParams() {
@@ -32,7 +34,7 @@ export function generateStaticParams() {
   ];
 }
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
@@ -45,17 +47,20 @@ export default function LocaleLayout({
 
   const locale = params.locale as Locale;
   const dict = getDictionary(locale);
+  const siteSettings = await getSiteSettings();
 
   return (
     <LocaleProvider locale={locale} dict={dict}>
-      <LocaleHtmlLang lang={localeHtmlLang[locale]} />
-      <JsonLd data={localBusinessJsonLd()} />
-      <Analytics />
-      <Header />
-      <div id="main-content">{children}</div>
-      <Footer />
-      <FloatingWhatsApp />
-      <MobileBottomBar />
+      <SiteSettingsProvider settings={siteSettings}>
+        <LocaleHtmlLang lang={localeHtmlLang[locale]} />
+        <JsonLd data={localBusinessJsonLd(siteSettings)} />
+        <Analytics />
+        <Header />
+        <div id="main-content">{children}</div>
+        <Footer />
+        <FloatingWhatsApp />
+        <MobileBottomBar />
+      </SiteSettingsProvider>
     </LocaleProvider>
   );
 }

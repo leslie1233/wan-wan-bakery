@@ -8,12 +8,15 @@ import { localePath } from "../lib/i18n/paths";
 import { buildWhatsAppUrl } from "../lib/whatsapp";
 import { productEnquiryMessage } from "../lib/whatsapp-messages";
 import { useLocale } from "./LocaleProvider";
+import { useSiteSettings } from "./SiteSettingsProvider";
 import WhatsAppLink from "./WhatsAppLink";
 
 export default function ProductCard({ product }: { product: CatalogProduct }) {
   const { locale, dict } = useLocale();
+  const contact = useSiteSettings();
   const whatsapp = buildWhatsAppUrl(
-    productEnquiryMessage(dict, product.name)
+    productEnquiryMessage(dict, product.name),
+    contact.whatsappNumber
   );
 
   return (

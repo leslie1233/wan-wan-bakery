@@ -6,8 +6,11 @@ type OrderLine = {
   quantity: number;
 };
 
-export function buildWhatsAppUrl(message: string): string {
-  return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`;
+export function buildWhatsAppUrl(
+  message: string,
+  whatsappNumber: string = siteConfig.whatsappNumber
+): string {
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
 
 export function generalEnquiryMessage(): string {
@@ -65,5 +68,10 @@ export function formEnquiryMessage(
   pickupDate: string,
   notes: string
 ): string {
-  return productEnquiryMessage(productName, quantity ? Number(quantity) : undefined, pickupDate, notes);
+  return productEnquiryMessage(
+    productName,
+    quantity ? Number(quantity) : undefined,
+    pickupDate,
+    notes
+  );
 }

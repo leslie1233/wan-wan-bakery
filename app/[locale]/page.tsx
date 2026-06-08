@@ -12,9 +12,11 @@ import { isLocale, type Locale } from "../../lib/i18n/locales";
 import { localePath } from "../../lib/i18n/paths";
 import { createPageMetadata } from "../../lib/metadata";
 import { getPromotionView } from "../../lib/promotion-store";
+import { getSiteSettings } from "../../lib/site-settings";
 import { siteConfig } from "../../lib/site-config";
 import { buildWhatsAppUrl } from "../../lib/whatsapp";
 import { generalEnquiryMessage } from "../../lib/whatsapp-messages";
+import { formatCallLabel } from "../../lib/phone";
 
 export function generateMetadata({
   params,
@@ -47,11 +49,15 @@ export default async function HomePage({
 
   const locale = params.locale as Locale;
   const dict = getDictionary(locale);
-  const [products, promotion] = await Promise.all([
+  const [products, promotion, contact] = await Promise.all([
     getCatalogProducts(locale),
     getPromotionView(locale),
+    getSiteSettings(),
   ]);
-  const whatsapp = buildWhatsAppUrl(generalEnquiryMessage(dict));
+  const whatsapp = buildWhatsAppUrl(
+    generalEnquiryMessage(dict),
+    contact.whatsappNumber
+  );
 
   return (
     <main className="page-main">
@@ -72,8 +78,8 @@ export default async function HomePage({
               <Link className="button secondary" href={localePath(locale, "/products")}>
                 {dict.hero.viewMenu}
               </Link>
-              <a className="button secondary" href={`tel:${siteConfig.phoneE164}`}>
-                {dict.hero.call}
+              <a className="button secondary" href={`tel:${contact.phoneE164}`}>
+                {formatCallLabel(dict.hero.call, contact.phone)}
               </a>
             </div>
           </div>

@@ -79,3 +79,11 @@ model PromotionTierTranslation {
 
   @@unique([tierId, locale])
 }
+
+model SiteSettings {
+  id             String   @id @default("default")
+  phone          String
+  phoneE164      String
+  whatsappNumber String
+  updatedAt      DateTime @updatedAt
+}

@@ -6,6 +6,7 @@ import { buildWhatsAppUrl } from "../lib/whatsapp";
 import { productEnquiryMessage } from "../lib/whatsapp-messages";
 import { trackEvent } from "./Analytics";
 import { useDictionary } from "./LocaleProvider";
+import { useSiteSettings } from "./SiteSettingsProvider";
 
 type EnquiryFormProps = {
   products: CatalogProduct[];
@@ -13,6 +14,7 @@ type EnquiryFormProps = {
 
 export default function EnquiryForm({ products }: EnquiryFormProps) {
   const dict = useDictionary();
+  const contact = useSiteSettings();
   const [productSlug, setProductSlug] = useState(products[0]?.slug ?? "");
   const [quantity, setQuantity] = useState("1");
   const [pickupDate, setPickupDate] = useState("");
@@ -40,7 +42,11 @@ export default function EnquiryForm({ products }: EnquiryFormProps) {
       item_name: selectedProduct.name,
     });
 
-    window.open(buildWhatsAppUrl(message), "_blank", "noopener,noreferrer");
+    window.open(
+      buildWhatsAppUrl(message, contact.whatsappNumber),
+      "_blank",
+      "noopener,noreferrer"
+    );
   }
 
   if (products.length === 0) {

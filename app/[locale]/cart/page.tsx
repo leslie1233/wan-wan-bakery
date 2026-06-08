@@ -5,6 +5,7 @@ import Link from "next/link";
 import CartPromotionNote from "../../../components/CartPromotionNote";
 import { useCart } from "../../../components/CartProvider";
 import { useDictionary, useLocale } from "../../../components/LocaleProvider";
+import { useSiteSettings } from "../../../components/SiteSettingsProvider";
 import WhatsAppLink from "../../../components/WhatsAppLink";
 import type { PromotionView } from "../../../lib/catalog-types";
 import { localePath } from "../../../lib/i18n/paths";
@@ -15,6 +16,7 @@ export default function CartPage() {
   const { items, updateQuantity, removeItem, clearCart } = useCart();
   const { locale } = useLocale();
   const dict = useDictionary();
+  const contact = useSiteSettings();
   const [pickupDate, setPickupDate] = useState("");
   const [notes, setNotes] = useState("");
   const [promotion, setPromotion] = useState<PromotionView | null>(null);
@@ -41,7 +43,8 @@ export default function CartPage() {
             })) ?? [],
             pickupDate,
             notes
-          )
+          ),
+          contact.whatsappNumber
         )
       : "#";
 
