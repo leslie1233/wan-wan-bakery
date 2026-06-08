@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth } from "../../../lib/auth";
-import { getAdminProducts } from "../../../lib/catalog";
-import { isDatabaseConfigured } from "../../../lib/db";
+import {
+  getAdminProducts,
+  getAdminProductsError,
+} from "../../../lib/catalog";
 
 export default async function AdminProductsPage() {
   const session = await auth();
@@ -11,7 +13,8 @@ export default async function AdminProductsPage() {
     redirect("/admin/login");
   }
 
-  const products = isDatabaseConfigured() ? await getAdminProducts() : [];
+  const dbError = await getAdminProductsError();
+  const products = dbError ? [] : await getAdminProducts();
 
   return (
     <section className="admin-page">
@@ -25,12 +28,30 @@ export default async function AdminProductsPage() {
         </Link>
       </div>
 
-      {!isDatabaseConfigured() ? (
+      {dbError === "not-configured" ? (
         <div className="admin-card admin-notice">
           <h3>Database not configured</h3>
           <p>
-            Add <code>DATABASE_URL</code> to <code>.env.local</code>, run{" "}
-            <code>npx prisma db push</code>, then <code>npm run db:seed</code>.
+            Create a free Postgres database at{" "}
+            <a href="https://neon.tech" target="_blank" rel="noreferrer">
+              neon.tech
+            </a>
+            , then add <code>DATABASE_URL</code> to Vercel environment
+            variables and redeploy. From your computer, run{" "}
+            <code>npm run db:push</code> and <code>npm run db:seed</code> once
+            with the same <code>DATABASE_URL</code>.
+          </p>
+        </div>
+      ) : null}
+
+      {dbError === "connection-failed" ? (
+        <div className="admin-card admin-notice">
+          <h3>Database connection failed</h3>
+          <p>
+            Check that <code>DATABASE_URL</code> on Vercel is a valid{" "}
+            <code>postgresql://</code> URL, then run{" "}
+            <code>npm run db:push</code> and <code>npm run db:seed</code> from
+            your computer with the same URL.
           </p>
         </div>
       ) : null}

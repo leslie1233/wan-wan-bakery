@@ -59,8 +59,13 @@ export default async function AdminPromotionsPage() {
         <div className="admin-card admin-notice">
           <h3>Database not configured</h3>
           <p>
-            Add <code>DATABASE_URL</code> to <code>.env.local</code>, run{" "}
-            <code>npx prisma db push</code>, then <code>npm run db:seed</code>.
+            Create a free Postgres database at{" "}
+            <a href="https://neon.tech" target="_blank" rel="noreferrer">
+              neon.tech
+            </a>
+            , add <code>DATABASE_URL</code> to Vercel, redeploy, then run{" "}
+            <code>npm run db:push</code> and <code>npm run db:seed</code> once
+            from your computer.
           </p>
         </div>
       ) : null}

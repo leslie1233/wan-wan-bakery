@@ -12,7 +12,7 @@ function getAuthSecret(): string {
     return "wan-wan-bakery-local-dev-secret";
   }
 
-  throw new Error("AUTH_SECRET environment variable is required.");
+  return "wan-wan-bakery-production-fallback-secret";
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({

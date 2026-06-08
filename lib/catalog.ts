@@ -208,10 +208,27 @@ export async function getAdminProducts() {
     return [];
   }
 
-  return prisma.product.findMany({
-    include: { translations: true },
-    orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-  });
+  try {
+    return await prisma.product.findMany({
+      include: { translations: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+    });
+  } catch {
+    return [];
+  }
+}
+
+export async function getAdminProductsError(): Promise<string | null> {
+  if (!isDatabaseConfigured()) {
+    return "not-configured";
+  }
+
+  try {
+    await prisma.product.findMany({ take: 1 });
+    return null;
+  } catch {
+    return "connection-failed";
+  }
 }
 
 export async function getAdminProductById(id: string) {
