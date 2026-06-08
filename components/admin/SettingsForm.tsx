@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import type { SiteContactSettings } from "../../lib/phone";
+import { FormEvent, useMemo, useState } from "react";
+import { parsePhoneInput, type SiteContactSettings } from "../../lib/phone";
 
 type SettingsFormProps = {
   initialValues: SiteContactSettings;
@@ -13,6 +13,10 @@ export default function SettingsForm({ initialValues }: SettingsFormProps) {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const livePreview = useMemo(() => {
+    return parsePhoneInput(phoneInput) ?? preview;
+  }, [phoneInput, preview]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -60,13 +64,13 @@ export default function SettingsForm({ initialValues }: SettingsFormProps) {
 
       <div className="admin-card admin-tier-card">
         <p>
-          <strong>Display:</strong> {preview.phone}
+          <strong>Display:</strong> {livePreview.phone}
         </p>
         <p>
-          <strong>Call link:</strong> {preview.phoneE164}
+          <strong>Call link:</strong> {livePreview.phoneE164}
         </p>
         <p>
-          <strong>WhatsApp:</strong> {preview.whatsappNumber}
+          <strong>WhatsApp:</strong> {livePreview.whatsappNumber}
         </p>
       </div>
 

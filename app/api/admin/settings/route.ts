@@ -44,14 +44,31 @@ export async function PUT(request: Request) {
     );
   }
 
-  const settings = await updateSiteSettings(parsed);
-  revalidatePath("/", "layout");
+  try {
+    const settings = await updateSiteSettings(parsed);
+    revalidatePath("/", "layout");
 
-  return NextResponse.json({
-    settings: {
-      phone: settings.phone,
-      phoneE164: settings.phoneE164,
-      whatsappNumber: settings.whatsappNumber,
-    },
-  });
+    return NextResponse.json({
+      settings: {
+        phone: settings.phone,
+        phoneE164: settings.phoneE164,
+        whatsappNumber: settings.whatsappNumber,
+      },
+    });
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "Unable to save phone number.";
+
+    if (message.includes("SiteSettings") || message.includes("does not exist")) {
+      return NextResponse.json(
+        {
+          error:
+            "Phone settings table is missing. Run npm run db:push on your computer, then try again.",
+        },
+        { status: 503 }
+      );
+    }
+
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
 }
