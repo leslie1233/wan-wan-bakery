@@ -112,6 +112,7 @@ export const ko: Dictionary = {
     payment: "결제:",
     whatsappUs: "WhatsApp 문의",
     call: "전화 81571573",
+    followInstagram: "Instagram 팔로우",
     enquiryTitle: "주문 문의 양식",
     enquiryIntro: "아래 내용을 입력하면 WhatsApp 메시지가 자동으로 채워집니다.",
     privacy: "주문 문의를 위해 전송한 정보만 수집하며 제3자와 공유하지 않습니다.",
@@ -184,6 +185,7 @@ export const ko: Dictionary = {
     whatsappUs: "WhatsApp 문의",
     call: "전화 81571573",
     replyNote: "대부분 WhatsApp으로 주문하며, 보통 몇 시간 내 답변드립니다.",
+    followInstagram: "Instagram 팔로우",
     shareFacebook: "Facebook에 공유",
     hours: "월-일, 오전 9시-오후 6시 (수령은 예약제)",
   },
@@ -194,24 +196,41 @@ export const ko: Dictionary = {
     backHome: "홈으로 돌아가기",
   },
   products: {
-    "garlic-bread": {
-      name: "갈릭 브레드",
-      category: "빵",
-      description:
-        "주문 즉시 신선하게 굽는 갈릭 브레드는 바삭한 겉면과 폭신하고 버터리한 속이 조화를 이룹니다. 천천히 구운 마늘과 허브를 더해 깊은 풍미를 담아, 식탁에서는 고급스럽고 일상에서는 편하게 즐길 수 있습니다.",
-      highlights: ["갓 구운 제품", "갈릭 버터", "함께 나누기 좋음"],
-    },
     "pandan-chiffon-cake": {
       name: "판단 쉬폰 케이크",
       category: "케이크",
-      description: "가볍고 폭신하며 향긋한 판단 쉬폰 케이크. 가족 모임과 기념일에 잘 어울리는 클래식 인기 메뉴입니다.",
-      highlights: ["부드럽고 폭신함", "판단 풍미", "가족 인기 메뉴"],
+      description: "가볍고 폭신하며 천연 판단 향이 좋은 쉬폰 케이크. 가족 모임과 기념일에 잘 어울리는 클래식 인기 메뉴입니다.",
+      highlights: ["부드럽고 폭신함", "천연 판단 향", "가족 인기 메뉴"],
     },
-    "cheese-cake": {
-      name: "치즈케이크",
+    "pandan-gula-melaka-chiffon-cake": {
+      name: "판단 굴라멜라카 쉬폰 케이크",
       category: "케이크",
-      description: "부드러운 식감과 균형 잡힌 단맛의 진하고 크리미한 치즈케이크. 생일과 특별한 날에 잘 어울립니다.",
-      highlights: ["크리미한 식감", "기념일 케이크", "주문 제작"],
+      description: "향긋한 판단 쉬폰에 진한 굴라멜라카(야자당)를 더해 캐러멜 같은 깊은 단맛을 느낄 수 있습니다. 싱가포르 인기 메뉴, 주문 제작입니다.",
+      highlights: ["판단과 굴라멜라카", "가벼운 쉬폰 식감", "주문 제작"],
+    },
+    "butter-cake": {
+      name: "버터 케이크",
+      category: "케이크",
+      description: "부드러운 크럼과 편안한 홈메이드 풍미의 클래식 버터 스펀지. 심플하고 향수를 자아내며 언제나 인기입니다.",
+      highlights: ["진한 버터 풍미", "촉촉한 식감", "일상 인기 메뉴"],
+    },
+    "coffee-walnut-cake": {
+      name: "커피 월넛 케이크",
+      category: "케이크",
+      description: "촉촉한 커피 스펀지에 바삭한 호두와 균형 잡힌 커피 향. 티타임이나 선물용으로 좋습니다.",
+      highlights: ["커피와 호두", "촉촉한 스펀지", "선물용으로 좋음"],
+    },
+    "burnt-cheesecake": {
+      name: "번트 치즈케이크",
+      category: "케이크",
+      description: "표면은 캐러멜리제, 속은 부드러운 바스크 스타일 치즈케이크. 특별한 날에 어울리는 진하고 크리미한 디저트입니다.",
+      highlights: ["캐러멜 표면", "크리미한 속", "기념일 인기"],
+    },
+    "fudge-brownies": {
+      name: "퍼지 브라우니",
+      category: "브라우니",
+      description: "진한 코코아 풍미의 촘촘하고 퍼지한 초콜릿 브라우니. 파티, 선물, 집에서 즐기는 디저트로 좋습니다.",
+      highlights: ["진하고 퍼지함", "깊은 초콜릿 맛", "파티 인기"],
     },
   },
   whatsapp: {

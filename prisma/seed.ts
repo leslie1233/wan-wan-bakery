@@ -155,6 +155,12 @@ async function main() {
   console.log(`Seeded admin user: ${adminEmail}`);
   console.log(`Default password: ${adminPassword}`);
   console.log(`Seeded ${products.length} products and promotion settings.`);
+
+  const activeSlugs = products.map((product) => product.slug);
+  await prisma.product.updateMany({
+    where: { slug: { notIn: activeSlugs } },
+    data: { published: false },
+  });
 }
 
 main()

@@ -1,4 +1,5 @@
 import EnquiryForm from "../../../components/EnquiryForm";
+import InstagramLink from "../../../components/InstagramLink";
 import WhatsAppLink from "../../../components/WhatsAppLink";
 import { getCatalogProducts } from "../../../lib/catalog";
 import { getDictionary } from "../../../lib/i18n/get-dictionary";
@@ -7,6 +8,7 @@ import { createPageMetadata } from "../../../lib/metadata";
 import { formatCallLabel } from "../../../lib/phone";
 import { getSiteSettings } from "../../../lib/site-settings";
 import { siteConfig } from "../../../lib/site-config";
+import { getInstagramUrl } from "../../../lib/social";
 import { buildWhatsAppUrl } from "../../../lib/whatsapp";
 import { generalEnquiryMessage } from "../../../lib/whatsapp-messages";
 import { notFound } from "next/navigation";
@@ -50,6 +52,7 @@ export default async function ContactPage({
     generalEnquiryMessage(dict),
     contact.whatsappNumber
   );
+  const instagramUrl = getInstagramUrl();
 
   return (
     <main className="container section page-main">
@@ -78,6 +81,15 @@ export default async function ContactPage({
           <a className="button secondary" href={`tel:${contact.phoneE164}`}>
             {formatCallLabel(dict.contact.call, contact.phone)}
           </a>
+          {instagramUrl ? (
+            <InstagramLink
+              href={instagramUrl}
+              className="button instagram"
+              eventLabel="contact_instagram"
+            >
+              {dict.contact.followInstagram}
+            </InstagramLink>
+          ) : null}
         </div>
       </div>
 

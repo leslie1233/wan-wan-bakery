@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: "Wan Wan Bakery",
-  tagline: "Fresh Garlic Bread & Cakes in Singapore",
+  tagline: "Fresh Homemade Cakes in Singapore",
   description:
-    "Wan Wan Bakery in Singapore. Freshly baked garlic bread, pandan chiffon cake and cheesecake. Order via WhatsApp.",
+    "Wan Wan Bakery in Singapore. Pandan chiffon, butter cake, burnt cheesecake, fudge brownies and more. Order via WhatsApp.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.wanwanbakery.com",
   phone: "81571573",
   phoneE164: "+6581571573",
@@ -16,7 +16,7 @@ export const siteConfig = {
   hours: "Mon–Sun, 9am–6pm (by appointment for collection)",
   lastContentUpdate: "2025-06-01",
   social: {
-    instagram: "",
+    instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
   },
   googleSiteVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? "",
   gaId: process.env.NEXT_PUBLIC_GA_ID ?? "",

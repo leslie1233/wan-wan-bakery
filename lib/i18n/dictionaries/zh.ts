@@ -112,6 +112,7 @@ export const zh: Dictionary = {
     payment: "付款方式：",
     whatsappUs: "WhatsApp 联系我们",
     call: "致电 81571573",
+    followInstagram: "关注我们的 Instagram",
     enquiryTitle: "结构化订单咨询",
     enquiryIntro: "填写以下信息后，我们将自动打开已预填信息的 WhatsApp 讯息。",
     privacy: "我们仅收集你主动发送的订单咨询信息，不会与第三方共享。",
@@ -184,6 +185,7 @@ export const zh: Dictionary = {
     whatsappUs: "WhatsApp 联系我们",
     call: "致电 81571573",
     replyNote: "大多数顾客通过 WhatsApp 下单 - 我们会在几小时内回复。",
+    followInstagram: "关注我们的 Instagram",
     shareFacebook: "分享到 Facebook",
     hours: "周一至周日，上午 9 点至下午 6 点（自取需预约）",
   },
@@ -194,24 +196,41 @@ export const zh: Dictionary = {
     backHome: "返回首页",
   },
   products: {
-    "garlic-bread": {
-      name: "蒜香面包",
-      category: "面包",
-      description:
-        "我们的蒜香面包按单新鲜现烤，外皮微脆，内里柔软香滑。加入慢烤蒜蓉与精选香草，每一条都烘烤出层次风味 - 餐桌上精致体面，日常分享也轻松合适。",
-      highlights: ["新鲜现烤", "蒜香黄油", "适合分享"],
-    },
     "pandan-chiffon-cake": {
       name: "斑兰戚风蛋糕",
       category: "蛋糕",
       description: "轻盈松软、带有清新斑兰香气的戚风蛋糕。经典人气之选，适合家庭聚会与庆祝活动。",
-      highlights: ["柔软蓬松", "斑兰风味", "家庭最爱"],
+      highlights: ["柔软蓬松", "天然斑兰香气", "家庭最爱"],
     },
-    "cheese-cake": {
-      name: "芝士蛋糕",
+    "pandan-gula-melaka-chiffon-cake": {
+      name: "斑兰椰糖戚风蛋糕",
       category: "蛋糕",
-      description: "口感浓郁细腻、甜度平衡的芝士蛋糕。适合生日与各种特别场合。",
-      highlights: ["绵密口感", "庆祝蛋糕", "按单现做"],
+      description: "清香斑兰戚风搭配浓郁椰糖（Gula Melaka），带来焦糖般的甜香层次。新加坡风味现代经典，按单现做。",
+      highlights: ["斑兰与椰糖", "轻盈戚风口感", "按单现做"],
+    },
+    "butter-cake": {
+      name: "牛油蛋糕",
+      category: "蛋糕",
+      description: "经典牛油海绵蛋糕，口感细腻柔软，带有温暖的家常风味。简单怀旧，永远受欢迎。",
+      highlights: ["浓郁牛油香", "湿润细腻", "日常最爱"],
+    },
+    "coffee-walnut-cake": {
+      name: "咖啡核桃蛋糕",
+      category: "蛋糕",
+      description: "湿润咖啡海绵蛋糕加入香脆核桃，咖啡香气平衡适中。适合下午茶或送礼。",
+      highlights: ["咖啡与核桃", "湿润海绵", "适合送礼"],
+    },
+    "burnt-cheesecake": {
+      name: "巴斯克焦香芝士蛋糕",
+      category: "蛋糕",
+      description: "巴斯克风格焦香芝士蛋糕，表面焦糖化，内馅绵密顺滑。浓郁奢华，适合特别场合。",
+      highlights: ["焦香表层", "绵密内馅", "庆祝首选"],
+    },
+    "fudge-brownies": {
+      name: "浓情布朗尼",
+      category: "布朗尼",
+      description: "浓郁扎实的巧克力布朗尼，可可风味深厚，口感满足。适合聚会、送礼或居家享用。",
+      highlights: ["浓郁扎实", "深巧克力味", "聚会人气"],
     },
   },
   whatsapp: {

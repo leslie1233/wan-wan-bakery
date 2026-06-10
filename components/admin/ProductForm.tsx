@@ -147,7 +147,7 @@ export default function ProductForm({
           <input
             value={slug}
             onChange={(event) => setSlug(event.target.value)}
-            placeholder="garlic-bread"
+            placeholder="pandan-chiffon-cake"
             required
           />
         </label>
@@ -156,7 +156,7 @@ export default function ProductForm({
           <input
             value={image}
             onChange={(event) => setImage(event.target.value)}
-            placeholder="/images/garlic-bread.jpg"
+            placeholder="/images/pandan-chiffon-cake.jpg"
             required
           />
         </label>

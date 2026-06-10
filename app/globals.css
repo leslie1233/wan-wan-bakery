@@ -170,6 +170,69 @@ textarea:focus-visible {
   max-height: 560px;
 }
 
+.home-hero {
+  padding: 20px 0 4px;
+  background: linear-gradient(180deg, #fff8f0 0%, #fffdf9 100%);
+  border-bottom: 1px solid var(--border);
+}
+
+.home-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.home-hero-banner-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  height: 168px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(82, 45, 25, 0.08);
+}
+
+.home-hero-banner-wrap .hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-hero-copy h1 {
+  margin: 0 0 10px;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  line-height: 1.2;
+  color: var(--brand-dark);
+}
+
+.home-hero-copy p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.55;
+  max-width: 640px;
+}
+
+.home-hero-cta {
+  justify-content: flex-start;
+  margin-top: 0;
+}
+
+.home-products-section {
+  padding-top: 28px;
+  scroll-margin-top: 96px;
+}
+
+.home-contact-section {
+  padding-top: 24px;
+  padding-bottom: 12px;
+}
+
+.promotion-section {
+  margin-bottom: 8px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
 .hero-image {
   width: 100%;
   height: 100%;
@@ -348,12 +411,21 @@ textarea:focus-visible {
   background: #0d65d9;
 }
 
-.footer-share {
-  margin-top: 12px;
+.button.instagram {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  color: white;
 }
 
-.promotion-section {
-  margin-bottom: 8px;
+.button.instagram:hover {
+  filter: brightness(0.95);
+}
+
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 12px;
 }
 
 .promotion-card {
@@ -759,11 +831,38 @@ textarea:focus-visible {
     max-height: 420px;
   }
 
+  .home-hero {
+    padding: 16px 0 4px;
+  }
+
+  .home-hero-inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .home-hero-banner-wrap {
+    height: 140px;
+  }
+
+  .home-hero-copy h1 {
+    font-size: 1.55rem;
+  }
+
+  .home-hero-copy p {
+    font-size: 0.98rem;
+  }
+
+  .home-products-section {
+    padding-top: 20px;
+    scroll-margin-top: 88px;
+  }
+
   .hero-content p {
     font-size: 1rem;
   }
 
   .hero-cta,
+  .home-hero-cta,
   .cta,
   .card-actions,
   .footer-cta {

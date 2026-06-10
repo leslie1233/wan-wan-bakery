@@ -1,6 +1,7 @@
 import type { CatalogProduct } from "./catalog-types";
 import { localizedPath, type Locale } from "./i18n/locales";
 import type { SiteContactSettings } from "./phone";
+import { getInstagramUrl } from "./social";
 import { siteConfig } from "./site-config";
 
 export function localBusinessJsonLd(settings?: SiteContactSettings) {
@@ -10,6 +11,8 @@ export function localBusinessJsonLd(settings?: SiteContactSettings) {
     whatsappNumber: siteConfig.whatsappNumber,
   };
 
+  const instagramUrl = getInstagramUrl();
+
   return {
     "@context": "https://schema.org",
     "@type": "Bakery",
@@ -17,6 +20,7 @@ export function localBusinessJsonLd(settings?: SiteContactSettings) {
     description: siteConfig.description,
     url: siteConfig.url,
     telephone: contact.phoneE164,
+    ...(instagramUrl ? { sameAs: [instagramUrl] } : {}),
     image: `${siteConfig.url}/images/logo.jpg`,
     servesCuisine: "Bakery",
     areaServed: {

@@ -61,34 +61,24 @@ export default async function HomePage({
 
   return (
     <main className="page-main">
-      <section className="hero-banner">
-        <HeroBanner alt={dict.hero.bannerAlt} />
-        <div className="hero-overlay">
-          <div className="container hero-content">
+      <section className="home-hero">
+        <div className="container home-hero-inner">
+          <div className="home-hero-banner-wrap">
+            <HeroBanner alt={dict.hero.bannerAlt} />
+          </div>
+          <div className="home-hero-copy">
             <h1>{dict.hero.tagline}</h1>
             <p>{dict.hero.subtitle}</p>
-            <div className="cta hero-cta">
-              <WhatsAppLink
-                href={whatsapp}
-                className="button"
-                eventLabel="hero_whatsapp"
-              >
-                {dict.hero.orderWhatsApp}
-              </WhatsAppLink>
-              <Link className="button secondary" href={localePath(locale, "/products")}>
+            <div className="cta home-hero-cta">
+              <Link className="button" href="#products">
                 {dict.hero.viewMenu}
               </Link>
-              <a className="button secondary" href={`tel:${contact.phoneE164}`}>
-                {formatCallLabel(dict.hero.call, contact.phone)}
-              </a>
             </div>
           </div>
         </div>
       </section>
 
-      <PromotionBanner promotion={promotion} standalone />
-
-      <section id="products" className="container section">
+      <section id="products" className="container section home-products-section">
         <h2>{dict.home.productsTitle}</h2>
         <p className="section-intro">{dict.home.productsIntro}</p>
 
@@ -99,9 +89,11 @@ export default async function HomePage({
         </div>
       </section>
 
+      <PromotionBanner promotion={promotion} standalone />
+
       <TrustSection />
 
-      <section className="container section">
+      <section className="container section home-contact-section">
         <div className="contact-box">
           <h2>{dict.home.orderEnquiryTitle}</h2>
           <p>{dict.home.orderEnquiryText}</p>
@@ -116,6 +108,9 @@ export default async function HomePage({
             <Link className="button secondary" href={localePath(locale, "/cart")}>
               {dict.home.reviewCart}
             </Link>
+            <a className="button secondary" href={`tel:${contact.phoneE164}`}>
+              {formatCallLabel(dict.hero.call, contact.phone)}
+            </a>
             <FacebookShareLink
               path={localePath(locale, "/")}
               className="button facebook"

@@ -112,6 +112,7 @@ export const fr: Dictionary = {
     payment: "Paiement:",
     whatsappUs: "Nous écrire sur WhatsApp",
     call: "Appeler 81571573",
+    followInstagram: "Suivez-nous sur Instagram",
     enquiryTitle: "Demande de commande structurée",
     enquiryIntro: "Remplissez les informations ci-dessous et nous ouvrirons WhatsApp avec votre message prérempli.",
     privacy: "Nous recueillons uniquement les informations que vous envoyez pour les demandes de commande et ne partageons pas vos données avec des tiers.",
@@ -184,6 +185,7 @@ export const fr: Dictionary = {
     whatsappUs: "Nous écrire sur WhatsApp",
     call: "Appeler 81571573",
     replyNote: "La plupart des clients commandent via WhatsApp - nous répondons sous quelques heures.",
+    followInstagram: "Suivez-nous sur Instagram",
     shareFacebook: "Partager sur Facebook",
     hours: "Lun-Dim, 9h-18h (retrait sur rendez-vous)",
   },
@@ -194,24 +196,41 @@ export const fr: Dictionary = {
     backHome: "Retour à l'accueil",
   },
   products: {
-    "garlic-bread": {
-      name: "Pain à l'ail",
-      category: "Pain",
-      description:
-        "Préparé frais à la commande, notre pain à l'ail associe une croûte délicatement croustillante à une mie moelleuse et beurrée. Infusé d'ail rôti lentement et d'herbes fines, il offre une belle profondeur de goût.",
-      highlights: ["Fraîchement cuit", "Beurre à l'ail", "Parfait à partager"],
-    },
     "pandan-chiffon-cake": {
       name: "Gâteau chiffon pandan",
       category: "Gâteau",
-      description: "Gâteau chiffon pandan léger, moelleux et parfumé. Un classique idéal pour les réunions familiales et célébrations.",
-      highlights: ["Moelleux et léger", "Saveur pandan", "Favori des familles"],
+      description: "Gâteau chiffon pandan léger, moelleux et parfumé. Un classique avec arôme naturel de pandan, idéal pour les réunions familiales et célébrations.",
+      highlights: ["Moelleux et léger", "Arôme pandan naturel", "Favori des familles"],
     },
-    "cheese-cake": {
-      name: "Cheesecake",
+    "pandan-gula-melaka-chiffon-cake": {
+      name: "Gâteau chiffon pandan gula melaka",
       category: "Gâteau",
-      description: "Cheesecake riche et crémeux avec texture lisse et douceur équilibrée. Idéal pour les anniversaires et occasions spéciales.",
-      highlights: ["Texture crémeuse", "Gâteau de célébration", "Préparé à la commande"],
+      description: "Chiffon pandan parfumé avec gula melaka (sucre de palme) riche pour une douceur profonde type caramel. Favori moderne de Singapour, préparé à la commande.",
+      highlights: ["Pandan et gula melaka", "Texture chiffon légère", "Préparé à la commande"],
+    },
+    "butter-cake": {
+      name: "Gâteau au beurre",
+      category: "Gâteau",
+      description: "Sponge au beurre classique à la mie tendre et au goût réconfortant fait maison. Simple, nostalgique et toujours apprécié.",
+      highlights: ["Saveur beurrée", "Mie moelleuse", "Favori du quotidien"],
+    },
+    "coffee-walnut-cake": {
+      name: "Gâteau café noix",
+      category: "Gâteau",
+      description: "Sponge au café moelleux avec noix croquantes et arôme de café équilibré. Idéal pour le thé ou en cadeau.",
+      highlights: ["Café et noix", "Sponge moelleux", "Parfait en cadeau"],
+    },
+    "burnt-cheesecake": {
+      name: "Cheesecake brûlé",
+      category: "Gâteau",
+      description: "Cheesecake basque crémeux avec top caramélisé et centre fondant. Riche, onctueux et idéal pour les occasions spéciales.",
+      highlights: ["Top caramélisé", "Centre crémeux", "Favori des célébrations"],
+    },
+    "fudge-brownies": {
+      name: "Brownies fudge",
+      category: "Brownie",
+      description: "Brownies au chocolat denses et fondants au cacao intense. Parfaits pour les fêtes, cadeaux ou à la maison.",
+      highlights: ["Riche et fondant", "Chocolat intense", "Favori des fêtes"],
     },
   },
   whatsapp: {

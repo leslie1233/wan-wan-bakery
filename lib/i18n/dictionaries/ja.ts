@@ -112,6 +112,7 @@ export const ja: Dictionary = {
     payment: "支払い:",
     whatsappUs: "WhatsAppで連絡",
     call: "電話 81571573",
+    followInstagram: "Instagramをフォロー",
     enquiryTitle: "注文問い合わせフォーム",
     enquiryIntro: "以下を入力すると、内容が入力済みの WhatsApp メッセージを開きます。",
     privacy: "注文問い合わせのために送信された情報のみを利用し、第三者に共有しません。",
@@ -184,6 +185,7 @@ export const ja: Dictionary = {
     whatsappUs: "WhatsAppで連絡",
     call: "電話 81571573",
     replyNote: "多くのお客様は WhatsApp で注文され、通常数時間以内に返信します。",
+    followInstagram: "Instagramをフォロー",
     shareFacebook: "Facebookでシェア",
     hours: "月-日 9:00-18:00（受け取りは予約制）",
   },
@@ -194,24 +196,41 @@ export const ja: Dictionary = {
     backHome: "ホームへ戻る",
   },
   products: {
-    "garlic-bread": {
-      name: "ガーリックブレッド",
-      category: "パン",
-      description:
-        "ご注文ごとに焼き上げるガーリックブレッドは、軽いサクサク感のあるクラストと、ふんわりバター香る内側が特長です。じっくりローストしたガーリックとハーブを合わせ、食卓で上品に、日常でも気軽に楽しめます。",
-      highlights: ["焼きたて", "ガーリックバター", "シェアに最適"],
-    },
     "pandan-chiffon-cake": {
       name: "パンダンシフォンケーキ",
       category: "ケーキ",
-      description: "軽くてふわふわ、香り高いパンダンシフォンケーキ。家族の集まりやお祝いにぴったりの定番です。",
-      highlights: ["ふわふわ食感", "パンダン風味", "家族に人気"],
+      description: "軽くてふわふわ、天然パンダンの香りが楽しめるシフォンケーキ。家族の集まりやお祝いにぴったりの定番です。",
+      highlights: ["ふわふわ食感", "天然パンダンの香り", "家族に人気"],
     },
-    "cheese-cake": {
-      name: "チーズケーキ",
+    "pandan-gula-melaka-chiffon-cake": {
+      name: "パンダン・グラメラカ・シフォンケーキ",
       category: "ケーキ",
-      description: "なめらかな食感とバランスの良い甘さが魅力の濃厚チーズケーキ。誕生日や特別な日におすすめです。",
-      highlights: ["クリーミーな食感", "お祝いケーキ", "受注生産"],
+      description: "香り高いパンダンシフォンに濃厚なグラメラカ（ヤシ糖）を合わせ、キャラメルのような深い甘さが楽しめます。シンガポールの人気フレーバー、受注生産です。",
+      highlights: ["パンダンとグラメラカ", "軽いシフォン食感", "受注生産"],
+    },
+    "butter-cake": {
+      name: "バターケーキ",
+      category: "ケーキ",
+      description: "しっとり柔らかなクラムとほっとする自家製の味わいが魅力の定番バターケーキ。シンプルで懐かしく、いつも人気です。",
+      highlights: ["バターの風味", "しっとり食感", "日常の定番"],
+    },
+    "coffee-walnut-cake": {
+      name: "コーヒーウォルナットケーキ",
+      category: "ケーキ",
+      description: "くるみの食感とコーヒーの香りがバランスよく楽しめるしっとりスポンジ。ティータイムやギフトにもおすすめです。",
+      highlights: ["コーヒーとくるみ", "しっとりスポンジ", "ギフトに最適"],
+    },
+    "burnt-cheesecake": {
+      name: "バスクチーズケーキ",
+      category: "ケーキ",
+      description: "表面は焦がしキャラメル、中はとろりとしたバスク風チーズケーキ。特別な日にふさわしい濃厚な逸品です。",
+      highlights: ["焦がしキャラメル", "クリーミーな中身", "お祝いに人気"],
+    },
+    "fudge-brownies": {
+      name: "ファッジブラウニー",
+      category: "ブラウニー",
+      description: "濃厚なココア風味のしっとりファッジブラウニー。パーティーやギフト、ご自宅のおやつにも最適です。",
+      highlights: ["濃厚でしっとり", "深いチョコレート味", "パーティー向け"],
     },
   },
   whatsapp: {

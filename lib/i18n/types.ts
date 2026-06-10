@@ -109,6 +109,7 @@ export type Dictionary = {
     payment: string;
     whatsappUs: string;
     call: string;
+    followInstagram: string;
     enquiryTitle: string;
     enquiryIntro: string;
     privacy: string;
@@ -148,6 +149,7 @@ export type Dictionary = {
     whatsappUs: string;
     call: string;
     replyNote: string;
+    followInstagram: string;
     shareFacebook: string;
     hours: string;
   };

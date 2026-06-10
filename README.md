@@ -3,9 +3,12 @@
 SEO-friendly bakery catalogue website built with Next.js, with WhatsApp ordering, cart support, and Phase 2 ordering foundations.
 
 ## Products
-- Garlic Bread
 - Pandan Chiffon Cake
-- Cheese Cake
+- Pandan Gula Melaka Chiffon Cake
+- Butter Cake
+- Coffee Walnut Cake
+- Burnt Cheesecake
+- Fudge Brownies
 
 ## Contact
 81571573
@@ -38,9 +41,12 @@ Copy `.env.example` to `.env.local` and set:
 Replace the placeholder files in `public/images/` with your real bakery photos:
 - `logo.jpg`
 - `banner.jpg`
-- `garlic-bread.jpg`
 - `pandan-chiffon-cake.jpg`
-- `cheese-cake.jpg`
+- `pandan-gula-melaka-chiffon-cake.jpg`
+- `butter-cake.jpg`
+- `coffee-walnut-cake.jpg`
+- `burnt-cheesecake.jpg`
+- `fudge-brownies.jpg`
 
 ## Features included
 - SEO metadata, canonical URLs, Open Graph, and Twitter cards

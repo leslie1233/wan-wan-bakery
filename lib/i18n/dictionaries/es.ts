@@ -112,6 +112,7 @@ export const es: Dictionary = {
     payment: "Pago:",
     whatsappUs: "Escríbenos por WhatsApp",
     call: "Llamar al 81571573",
+    followInstagram: "Síguenos en Instagram",
     enquiryTitle: "Consulta estructurada de pedido",
     enquiryIntro: "Completa los datos y abriremos WhatsApp con tu mensaje prellenado.",
     privacy: "Solo recopilamos los datos que envías para consultas de pedido y no compartimos tu información con terceros.",
@@ -184,6 +185,7 @@ export const es: Dictionary = {
     whatsappUs: "Escríbenos por WhatsApp",
     call: "Llamar al 81571573",
     replyNote: "La mayoría de clientes pide por WhatsApp: respondemos en pocas horas.",
+    followInstagram: "Síguenos en Instagram",
     shareFacebook: "Compartir en Facebook",
     hours: "Lun-Dom, 9am-6pm (recogida con cita previa)",
   },
@@ -194,26 +196,47 @@ export const es: Dictionary = {
     backHome: "Volver al inicio",
   },
   products: {
-    "garlic-bread": {
-      name: "Pan de ajo",
-      category: "Pan",
-      description:
-        "Hecho fresco por encargo, nuestro pan de ajo combina una corteza delicadamente crujiente con un interior suave y mantequilloso. Con ajo asado lentamente y hierbas finas, cada pieza se hornea para lograr profundidad de sabor.",
-      highlights: ["Recién horneado", "Mantequilla de ajo", "Perfecto para compartir"],
-    },
     "pandan-chiffon-cake": {
       name: "Pastel chiffon de pandan",
       category: "Pastel",
       description:
-        "Pastel chiffon de pandan ligero, esponjoso y aromático. Un clásico ideal para reuniones familiares y celebraciones.",
-      highlights: ["Suave y esponjoso", "Sabor pandan", "Favorito familiar"],
+        "Pastel chiffon de pandan ligero, esponjoso y aromático. Un clásico con aroma natural de pandan, ideal para reuniones familiares y celebraciones.",
+      highlights: ["Suave y esponjoso", "Aroma natural de pandan", "Favorito familiar"],
     },
-    "cheese-cake": {
-      name: "Cheesecake",
+    "pandan-gula-melaka-chiffon-cake": {
+      name: "Pastel chiffon pandan gula melaka",
       category: "Pastel",
       description:
-        "Cheesecake rico y cremoso con textura suave y dulzor equilibrado. Ideal para cumpleaños y ocasiones especiales.",
-      highlights: ["Textura cremosa", "Pastel para celebraciones", "Hecho por encargo"],
+        "Chiffon de pandan fragante con rico gula melaka (azúcar de palma) para una dulzura profunda tipo caramelo. Favorito moderno de Singapur, hecho por encargo.",
+      highlights: ["Pandan y gula melaka", "Textura chiffon ligera", "Hecho por encargo"],
+    },
+    "butter-cake": {
+      name: "Pastel de mantequilla",
+      category: "Pastel",
+      description:
+        "Bizcocho clásico de mantequilla con miga tierna y sabor casero reconfortante. Simple, nostálgico y siempre popular.",
+      highlights: ["Sabor a mantequilla", "Miga húmeda", "Favorito diario"],
+    },
+    "coffee-walnut-cake": {
+      name: "Pastel de café y nuez",
+      category: "Pastel",
+      description:
+        "Bizcocho de café húmedo con nueces crujientes y aroma equilibrado. Ideal para la hora del té o como regalo.",
+      highlights: ["Café y nuez", "Bizcocho húmedo", "Ideal para regalar"],
+    },
+    "burnt-cheesecake": {
+      name: "Cheesecake quemado",
+      category: "Pastel",
+      description:
+        "Cheesecake vasco cremoso con top caramelizado y centro fundente. Rico, suave e ideal para ocasiones especiales.",
+      highlights: ["Top caramelizado", "Centro cremoso", "Favorito de celebraciones"],
+    },
+    "fudge-brownies": {
+      name: "Brownies fudge",
+      category: "Brownie",
+      description:
+        "Brownies de chocolate densos y fudgy con profundo sabor a cacao. Perfectos para fiestas, regalos o en casa.",
+      highlights: ["Rico y fudgy", "Chocolate intenso", "Favorito de fiestas"],
     },
   },
   whatsapp: {

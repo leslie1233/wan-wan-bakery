@@ -5,7 +5,9 @@ import { formatCallLabel } from "../lib/phone";
 import { siteConfig } from "../lib/site-config";
 import { localePath } from "../lib/i18n/paths";
 import FacebookShareLink from "./FacebookShareLink";
+import InstagramLink from "./InstagramLink";
 import { useLocale } from "./LocaleProvider";
+import { getInstagramUrl } from "../lib/social";
 import { useSiteSettings } from "./SiteSettingsProvider";
 import WhatsAppLink from "./WhatsAppLink";
 import { buildWhatsAppUrl } from "../lib/whatsapp";
@@ -18,6 +20,7 @@ export default function Footer() {
     generalEnquiryMessage(dict),
     contact.whatsappNumber
   );
+  const instagramUrl = getInstagramUrl();
 
   return (
     <footer className="footer">
@@ -81,13 +84,24 @@ export default function Footer() {
           © {new Date().getFullYear()} {siteConfig.name}
         </p>
         <p>{dict.footer.replyNote}</p>
-        <FacebookShareLink
-          path={localePath(locale, "/")}
-          className="button facebook footer-share"
-          eventLabel="footer_facebook_share"
-        >
-          {dict.footer.shareFacebook}
-        </FacebookShareLink>
+        <div className="footer-social">
+          {instagramUrl ? (
+            <InstagramLink
+              href={instagramUrl}
+              className="button instagram"
+              eventLabel="footer_instagram"
+            >
+              {dict.footer.followInstagram}
+            </InstagramLink>
+          ) : null}
+          <FacebookShareLink
+            path={localePath(locale, "/")}
+            className="button facebook"
+            eventLabel="footer_facebook_share"
+          >
+            {dict.footer.shareFacebook}
+          </FacebookShareLink>
+        </div>
       </div>
     </footer>
   );

@@ -32,9 +32,9 @@ export const en: Dictionary = {
     language: "Language",
   },
   hero: {
-    tagline: "Fresh Garlic Bread & Cakes in Singapore",
+    tagline: "Fresh Homemade Cakes in Singapore",
     subtitle:
-      "Freshly baked garlic bread, pandan chiffon cake and cheesecake. Order ahead for weekends and celebrations.",
+      "Pandan chiffon, gula melaka chiffon, butter cake, coffee walnut cake, burnt cheesecake and fudge brownies. Order ahead for weekends and celebrations.",
     orderWhatsApp: "Order on WhatsApp",
     viewMenu: "View Menu",
     call: "Call 81571573",
@@ -123,6 +123,7 @@ export const en: Dictionary = {
     payment: "Payment:",
     whatsappUs: "WhatsApp Us",
     call: "Call 81571573",
+    followInstagram: "Follow us on Instagram",
     enquiryTitle: "Structured Order Enquiry",
     enquiryIntro: "Fill in the details below and we will open WhatsApp with your message pre-filled.",
     privacy:
@@ -201,6 +202,7 @@ export const en: Dictionary = {
     whatsappUs: "WhatsApp Us",
     call: "Call 81571573",
     replyNote: "Most customers order via WhatsApp - we reply within a few hours.",
+    followInstagram: "Follow us on Instagram",
     shareFacebook: "Share on Facebook",
     hours: "Mon-Sun, 9am-6pm (by appointment for collection)",
   },
@@ -211,26 +213,47 @@ export const en: Dictionary = {
     backHome: "Back to Home",
   },
   products: {
-    "garlic-bread": {
-      name: "Garlic Bread",
-      category: "Bread",
-      description:
-        "Crafted fresh to order, our garlic bread pairs a delicately crisp crust with a pillowy, buttery interior. Infused with slow-roasted garlic and fine herbs, each loaf is baked for depth of flavour - refined at the dinner table, yet effortless for everyday sharing.",
-      highlights: ["Freshly baked", "Garlic butter", "Perfect for sharing"],
-    },
     "pandan-chiffon-cake": {
       name: "Pandan Chiffon Cake",
       category: "Cake",
       description:
-        "Light, fluffy and fragrant pandan chiffon cake. A classic favourite suitable for family gatherings and celebrations.",
-      highlights: ["Soft and fluffy", "Pandan flavour", "Family favourite"],
+        "Light, fluffy and fragrant pandan chiffon cake. A classic favourite with natural pandan aroma, perfect for family gatherings and celebrations.",
+      highlights: ["Soft and fluffy", "Natural pandan aroma", "Family favourite"],
     },
-    "cheese-cake": {
-      name: "Cheesecake",
+    "pandan-gula-melaka-chiffon-cake": {
+      name: "Pandan Gula Melaka Chiffon Cake",
       category: "Cake",
       description:
-        "Rich and creamy cheesecake with smooth texture and balanced sweetness. Suitable for birthdays and special occasions.",
-      highlights: ["Creamy texture", "Celebration cake", "Made to order"],
+        "A fragrant pandan chiffon layered with rich gula melaka (palm sugar) for a sweet, caramel-like depth. A modern Singapore favourite made to order.",
+      highlights: ["Pandan and gula melaka", "Light chiffon texture", "Made to order"],
+    },
+    "butter-cake": {
+      name: "Butter Cake",
+      category: "Cake",
+      description:
+        "A classic buttery sponge with a tender crumb and comforting homemade flavour. Simple, nostalgic and always a crowd-pleaser.",
+      highlights: ["Rich butter flavour", "Moist crumb", "Everyday favourite"],
+    },
+    "coffee-walnut-cake": {
+      name: "Coffee Walnut Cake",
+      category: "Cake",
+      description:
+        "Moist coffee sponge studded with crunchy walnuts and finished with a balanced coffee aroma. Ideal for tea time and gifting.",
+      highlights: ["Coffee and walnut", "Moist sponge", "Great for gifting"],
+    },
+    "burnt-cheesecake": {
+      name: "Burnt Cheesecake",
+      category: "Cake",
+      description:
+        "Creamy Basque-style burnt cheesecake with a caramelised top and molten centre. Rich, smooth and indulgent for special occasions.",
+      highlights: ["Caramelised top", "Creamy centre", "Celebration favourite"],
+    },
+    "fudge-brownies": {
+      name: "Fudge Brownies",
+      category: "Brownie",
+      description:
+        "Dense, fudgy chocolate brownies with a deep cocoa flavour and a satisfying bite. Perfect for parties, gifts or a sweet treat at home.",
+      highlights: ["Rich and fudgy", "Deep chocolate", "Party favourite"],
     },
   },
   whatsapp: {
