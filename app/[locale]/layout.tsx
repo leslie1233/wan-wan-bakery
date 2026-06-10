@@ -18,6 +18,8 @@ import {
 import { getSiteSettings } from "../../lib/site-settings";
 import { localBusinessJsonLd } from "../../lib/structured-data";
 
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
   return [
     { locale: "en" },
