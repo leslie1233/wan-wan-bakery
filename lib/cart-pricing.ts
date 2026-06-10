@@ -1,6 +1,11 @@
 import type { CartItem } from "./cart";
 import type { PromotionTierView } from "./catalog-types";
 import { getApplicableTier } from "./promotion-store";
+import {
+  discountCentsToPoints,
+  pointsToDiscountCents,
+  type RewardsSettingsView,
+} from "./rewards-settings";
 
 export type CartLinePricing = {
   slug: string;
@@ -10,21 +15,41 @@ export type CartLinePricing = {
   lineSubtotalCents: number;
 };
 
+export type CartPricingExtras = {
+  isFirstOrder?: boolean;
+  referralCodeValid?: boolean;
+  loyaltyPointsAvailable?: number;
+  pointsToRedeem?: number;
+  rewardsSettings?: RewardsSettingsView | null;
+};
+
 export type CartPricing = {
   lines: CartLinePricing[];
   totalQuantity: number;
   subtotalCents: number;
-  discountPercent: number;
-  discountCents: number;
+  bulkDiscountPercent: number;
+  bulkDiscountCents: number;
+  firstOrderDiscountPercent: number;
+  firstOrderDiscountCents: number;
+  referralDiscountPercent: number;
+  referralDiscountCents: number;
+  pointsRedeemed: number;
+  pointsRedeemedCents: number;
   totalCents: number;
+  pointsEarned: number;
   tierLabel: string | null;
   hasPricedItems: boolean;
+  /** @deprecated use bulkDiscountPercent */
+  discountPercent: number;
+  /** @deprecated use bulkDiscountCents */
+  discountCents: number;
 };
 
 export function calculateCartPricing(
   items: CartItem[],
   tiers: PromotionTierView[],
-  promotionActive = true
+  promotionActive = true,
+  extras: CartPricingExtras = {}
 ): CartPricing {
   const lines: CartLinePricing[] = items.map((item) => ({
     slug: item.slug,
@@ -46,18 +71,78 @@ export function calculateCartPricing(
       ? getApplicableTier(tiers, totalQuantity)
       : null;
 
-  const discountPercent = tier?.discountPercent ?? 0;
-  const discountCents = Math.round((subtotalCents * discountPercent) / 100);
-  const totalCents = subtotalCents - discountCents;
+  const bulkDiscountPercent = tier?.discountPercent ?? 0;
+  const bulkDiscountCents = Math.round((subtotalCents * bulkDiscountPercent) / 100);
+  let remainingCents = subtotalCents - bulkDiscountCents;
+
+  const rewards = extras.rewardsSettings;
+  const rewardsActive = rewards?.active ?? false;
+
+  let firstOrderDiscountPercent = 0;
+  let firstOrderDiscountCents = 0;
+  let referralDiscountPercent = 0;
+  let referralDiscountCents = 0;
+
+  if (rewardsActive && rewards && remainingCents > 0) {
+    if (extras.referralCodeValid && rewards.referralDiscountPercent > 0) {
+      referralDiscountPercent = rewards.referralDiscountPercent;
+      referralDiscountCents = Math.round(
+        (remainingCents * referralDiscountPercent) / 100
+      );
+      remainingCents -= referralDiscountCents;
+    } else if (extras.isFirstOrder && rewards.firstOrderDiscountPercent > 0) {
+      firstOrderDiscountPercent = rewards.firstOrderDiscountPercent;
+      firstOrderDiscountCents = Math.round(
+        (remainingCents * firstOrderDiscountPercent) / 100
+      );
+      remainingCents -= firstOrderDiscountCents;
+    }
+  }
+
+  let pointsRedeemed = 0;
+  let pointsRedeemedCents = 0;
+
+  if (
+    rewardsActive &&
+    rewards &&
+    extras.pointsToRedeem &&
+    extras.pointsToRedeem > 0 &&
+    extras.loyaltyPointsAvailable &&
+    extras.loyaltyPointsAvailable > 0
+  ) {
+    const maxRedeemablePoints = Math.min(
+      extras.pointsToRedeem,
+      extras.loyaltyPointsAvailable
+    );
+    const requestedDiscountCents = pointsToDiscountCents(maxRedeemablePoints, rewards);
+    pointsRedeemedCents = Math.min(requestedDiscountCents, remainingCents);
+    pointsRedeemed = discountCentsToPoints(pointsRedeemedCents, rewards);
+    remainingCents -= pointsRedeemedCents;
+  }
+
+  const totalCents = Math.max(0, remainingCents);
+  const pointsEarned =
+    rewardsActive && rewards
+      ? Math.floor(totalCents / 100) * rewards.pointsPerDollar
+      : 0;
 
   return {
     lines,
     totalQuantity,
     subtotalCents,
-    discountPercent,
-    discountCents,
+    bulkDiscountPercent,
+    bulkDiscountCents,
+    firstOrderDiscountPercent,
+    firstOrderDiscountCents,
+    referralDiscountPercent,
+    referralDiscountCents,
+    pointsRedeemed,
+    pointsRedeemedCents,
     totalCents,
+    pointsEarned,
     tierLabel: tier?.label ?? null,
     hasPricedItems,
+    discountPercent: bulkDiscountPercent,
+    discountCents: bulkDiscountCents,
   };
 }

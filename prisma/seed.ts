@@ -154,6 +154,26 @@ async function main() {
     },
   });
 
+  await prisma.rewardsSettings.upsert({
+    where: { id: "default" },
+    update: {
+      active: true,
+      ownerEmail: process.env.OWNER_EMAIL ?? "sdksdk77@hotmail.com",
+    },
+    create: {
+      id: "default",
+      active: true,
+      ownerEmail: process.env.OWNER_EMAIL ?? "sdksdk77@hotmail.com",
+      fromEmail: "Wan Wan Bakery <onboarding@resend.dev>",
+      firstOrderDiscountPercent: 10,
+      referralDiscountPercent: 10,
+      referrerPointsReward: 500,
+      pointsPerDollar: 1,
+      pointsRedemptionRate: 100,
+      pointsRedemptionValueCents: 500,
+    },
+  });
+
   console.log(`Seeded admin user: ${adminEmail}`);
   console.log(`Default password: ${adminPassword}`);
   console.log(`Seeded ${products.length} products and promotion settings.`);

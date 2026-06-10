@@ -20,6 +20,7 @@ export default function Header() {
     { href: localePath(locale, "/about"), label: dict.nav.about },
     { href: localePath(locale, "/faq"), label: dict.nav.faq },
     { href: localePath(locale, "/contact"), label: dict.nav.contact },
+    { href: localePath(locale, "/account"), label: dict.nav.account },
   ];
 
   return (

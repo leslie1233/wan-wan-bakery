@@ -5,21 +5,12 @@ import Link from "next/link";
 import type { CatalogProduct } from "../lib/catalog-types";
 import { leadTimeBadges } from "../lib/i18n/lead-time";
 import { localePath } from "../lib/i18n/paths";
-import { buildWhatsAppUrl } from "../lib/whatsapp";
-import { productEnquiryMessage } from "../lib/whatsapp-messages";
 import { useLocale } from "./LocaleProvider";
-import { useSiteSettings } from "./SiteSettingsProvider";
-import WhatsAppLink from "./WhatsAppLink";
 import AddToCartButton from "./AddToCartButton";
 import { formatPrice } from "../lib/format";
 
 export default function ProductCard({ product }: { product: CatalogProduct }) {
   const { locale, dict } = useLocale();
-  const contact = useSiteSettings();
-  const whatsapp = buildWhatsAppUrl(
-    productEnquiryMessage(dict, product.name),
-    contact.whatsappNumber
-  );
 
   return (
     <article className="card">
@@ -56,13 +47,6 @@ export default function ProductCard({ product }: { product: CatalogProduct }) {
         >
           {dict.productsPage.viewDetails}
         </Link>
-        <WhatsAppLink
-          href={whatsapp}
-          className="button secondary"
-          eventLabel={`card_whatsapp_${product.slug}`}
-        >
-          {dict.productsPage.orderWhatsApp}
-        </WhatsAppLink>
       </div>
     </article>
   );

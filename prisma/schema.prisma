@@ -88,3 +88,93 @@ model SiteSettings {
   paynowNumber   String   @default("")
   updatedAt      DateTime @updatedAt
 }
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum LoyaltyTransactionType {
+  EARN
+  REDEEM
+  REFERRAL_BONUS
+  ADJUSTMENT
+}
+
+model Customer {
+  id            String               @id @default(cuid())
+  email         String               @unique
+  name          String
+  phone         String               @default("")
+  passwordHash  String
+  referralCode  String               @unique
+  referredById  String?
+  referredBy    Customer?            @relation("Referrals", fields: [referredById], references: [id])
+  referrals     Customer[]           @relation("Referrals")
+  loyaltyPoints Int                  @default(0)
+  createdAt     DateTime             @default(now())
+  orders        Order[]
+  transactions  LoyaltyTransaction[]
+}
+
+model Order {
+  id                      String      @id @default(cuid())
+  orderNumber             String      @unique
+  customerId              String?
+  customer                Customer?   @relation(fields: [customerId], references: [id])
+  guestEmail              String?
+  guestName               String?
+  guestPhone              String?
+  status                  OrderStatus @default(PENDING)
+  subtotalCents           Int
+  bulkDiscountCents       Int         @default(0)
+  firstOrderDiscountCents Int         @default(0)
+  referralDiscountCents   Int         @default(0)
+  pointsRedeemedCents     Int         @default(0)
+  totalCents              Int
+  pointsEarned            Int         @default(0)
+  pointsRedeemed          Int         @default(0)
+  referralCodeUsed        String?
+  pickupDate              String?
+  notes                   String?
+  createdAt               DateTime    @default(now())
+  items                   OrderItem[]
+}
+
+model OrderItem {
+  id                String @id @default(cuid())
+  orderId           String
+  order             Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productSlug       String
+  productName       String
+  quantity          Int
+  unitCents         Int
+  lineSubtotalCents Int
+}
+
+model LoyaltyTransaction {
+  id          String                 @id @default(cuid())
+  customerId  String
+  customer    Customer               @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  type        LoyaltyTransactionType
+  points      Int
+  orderId     String?
+  note        String?
+  createdAt   DateTime               @default(now())
+}
+
+model RewardsSettings {
+  id                        String   @id @default("default")
+  active                    Boolean  @default(true)
+  ownerEmail                String   @default("sdksdk77@hotmail.com")
+  fromEmail                 String   @default("Wan Wan Bakery <orders@wanwanbakery.com>")
+  firstOrderDiscountPercent Int      @default(10)
+  referralDiscountPercent   Int      @default(10)
+  referrerPointsReward      Int      @default(500)
+  pointsPerDollar           Int      @default(1)
+  pointsRedemptionRate      Int      @default(100)
+  pointsRedemptionValueCents Int     @default(500)
+  updatedAt                 DateTime @updatedAt
+}

@@ -24,10 +24,7 @@ import {
   productJsonLd,
 } from "../../../../lib/structured-data";
 import { buildWhatsAppUrl } from "../../../../lib/whatsapp";
-import {
-  productEnquiryMessage,
-  productQuestionMessage,
-} from "../../../../lib/whatsapp-messages";
+import { productQuestionMessage } from "../../../../lib/whatsapp-messages";
 
 export async function generateStaticParams() {
   const slugs = await getAllProductSlugs();
@@ -90,10 +87,6 @@ export default async function ProductDetailPage({
     notFound();
   }
 
-  const whatsappOrder = buildWhatsAppUrl(
-    productEnquiryMessage(dict, product.name),
-    contact.whatsappNumber
-  );
   const whatsappQuestion = buildWhatsAppUrl(
     productQuestionMessage(dict, product.name),
     contact.whatsappNumber
@@ -161,13 +154,6 @@ export default async function ProductDetailPage({
           </ul>
 
           <div className="cta">
-            <WhatsAppLink
-              href={whatsappOrder}
-              className="button"
-              eventLabel={`product_order_${product.slug}`}
-            >
-              {dict.productsPage.orderThis}
-            </WhatsAppLink>
             <AddToCartButton product={product} />
             <WhatsAppLink
               href={whatsappQuestion}

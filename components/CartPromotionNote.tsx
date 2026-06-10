@@ -29,10 +29,10 @@ export default function CartPromotionNote({
   return (
     <p className="promotion-note">
       <strong>{promotion.title}:</strong> {message}
-      {pricing.discountCents > 0 ? (
+      {pricing.bulkDiscountCents > 0 ? (
         <>
           {" "}
-          ({dict.cart.discount}: -{formatPrice(pricing.discountCents)})
+          ({dict.cart.discount}: -{formatPrice(pricing.bulkDiscountCents)})
         </>
       ) : null}
     </p>

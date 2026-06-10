@@ -10,9 +10,16 @@ type OrderLine = {
 
 type OrderTotals = {
   subtotalCents: number;
-  discountCents: number;
+  bulkDiscountCents: number;
+  firstOrderDiscountCents?: number;
+  referralDiscountCents?: number;
+  pointsRedeemedCents?: number;
+  pointsRedeemed?: number;
   totalCents: number;
+  pointsEarned?: number;
   paynowNumber: string;
+  /** @deprecated use bulkDiscountCents */
+  discountCents?: number;
 };
 
 export function generalEnquiryMessage(dict: Dictionary): string {
@@ -59,6 +66,8 @@ export function cartOrderMessage(
   const promotionLabel =
     sortedTiers.find((tier) => totalQuantity >= tier.minQuantity)?.label ?? null;
 
+  const bulkDiscountCents = totals.bulkDiscountCents ?? totals.discountCents ?? 0;
+
   const lines = [
     dict.whatsapp.placeOrder,
     ...items.map((item) => {
@@ -77,12 +86,34 @@ export function cartOrderMessage(
   if (totals.subtotalCents > 0) {
     lines.push(`• ${dict.whatsapp.subtotal}: ${formatPrice(totals.subtotalCents)}`);
 
-    if (totals.discountCents > 0) {
-      lines.push(`• ${dict.whatsapp.discount}: -${formatPrice(totals.discountCents)}`);
+    if (bulkDiscountCents > 0) {
+      lines.push(`• ${dict.whatsapp.discount}: -${formatPrice(bulkDiscountCents)}`);
+    }
+
+    if (totals.firstOrderDiscountCents && totals.firstOrderDiscountCents > 0) {
+      lines.push(
+        `• ${dict.whatsapp.firstOrderDiscount}: -${formatPrice(totals.firstOrderDiscountCents)}`
+      );
+    }
+
+    if (totals.referralDiscountCents && totals.referralDiscountCents > 0) {
+      lines.push(
+        `• ${dict.whatsapp.referralDiscount}: -${formatPrice(totals.referralDiscountCents)}`
+      );
+    }
+
+    if (totals.pointsRedeemedCents && totals.pointsRedeemedCents > 0) {
+      lines.push(
+        `• ${dict.whatsapp.pointsDiscount}: -${formatPrice(totals.pointsRedeemedCents)} (${totals.pointsRedeemed ?? 0} pts)`
+      );
     }
 
     lines.push(`• ${dict.whatsapp.total}: ${formatPrice(totals.totalCents)}`);
     lines.push(`• ${dict.whatsapp.payNow}: ${totals.paynowNumber}`);
+
+    if (totals.pointsEarned && totals.pointsEarned > 0) {
+      lines.push(`• ${dict.whatsapp.pointsEarned}: ${totals.pointsEarned}`);
+    }
   }
 
   lines.push(`• ${dict.whatsapp.pickupDate}: ${pickupDate ?? ""}`);
