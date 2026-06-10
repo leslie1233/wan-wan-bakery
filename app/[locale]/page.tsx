@@ -1,7 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import FacebookShareLink from "../../components/FacebookShareLink";
-import HeroBanner from "../../components/HeroBanner";
 import ProductCard from "../../components/ProductCard";
 import PromotionBanner from "../../components/PromotionBanner";
 import TrustSection from "../../components/TrustSection";
@@ -10,6 +10,7 @@ import { getCatalogProducts } from "../../lib/catalog";
 import { getDictionary } from "../../lib/i18n/get-dictionary";
 import { isLocale, type Locale } from "../../lib/i18n/locales";
 import { localePath } from "../../lib/i18n/paths";
+import { getLogoImage } from "../../lib/i18n/images";
 import { createPageMetadata } from "../../lib/metadata";
 import { getPromotionView } from "../../lib/promotion-store";
 import { getSiteSettings } from "../../lib/site-settings";
@@ -63,8 +64,15 @@ export default async function HomePage({
     <main className="page-main">
       <section className="home-hero">
         <div className="container home-hero-inner">
-          <div className="home-hero-banner-wrap">
-            <HeroBanner alt={dict.hero.bannerAlt} />
+          <div className="home-hero-banner-wrap home-hero-logo-wrap">
+            <Image
+              src={getLogoImage()}
+              alt={dict.hero.bannerAlt}
+              width={280}
+              height={168}
+              priority
+              className="hero-image home-hero-logo"
+            />
           </div>
           <div className="home-hero-copy">
             <h1>{dict.hero.tagline}</h1>

@@ -2,18 +2,18 @@ import type { Dictionary } from "../types";
 
 export const en: Dictionary = {
   meta: {
-    homeTitle: "Wan Wan Bakery | Garlic Bread, Pandan Chiffon Cake & Cheesecake Singapore",
+    homeTitle: "Wan Wan Bakery | Homemade Cakes & Brownies Singapore",
     homeDescription:
-      "Wan Wan Bakery in Singapore. Freshly baked garlic bread, pandan chiffon cake and cheesecake. Order via WhatsApp.",
+      "Wan Wan Bakery in Singapore. Pandan chiffon, butter cake, burnt cheesecake, fudge brownies and more. Order via WhatsApp.",
     productsTitle: "Bakery Products",
     productsDescription:
-      "Browse garlic bread, pandan chiffon cake, and cheesecake from Wan Wan Bakery Singapore. Order ahead via WhatsApp.",
+      "Browse our homemade cakes and brownies from Wan Wan Bakery Singapore. Order ahead via WhatsApp.",
     aboutTitle: "About Wan Wan Bakery",
     aboutDescription:
-      "Learn about Wan Wan Bakery in Singapore - freshly baked garlic bread, pandan chiffon cake, and cheesecake made to order.",
+      "Learn about Wan Wan Bakery in Singapore - homemade cakes and brownies made to order.",
     contactTitle: "Contact Wan Wan Bakery",
     contactDescription:
-      "Contact Wan Wan Bakery at 81571573 for garlic bread, pandan chiffon cake, and cheesecake enquiries in Singapore.",
+      "Contact Wan Wan Bakery for cake and brownie enquiries in Singapore. Order via WhatsApp.",
     faqTitle: "Frequently Asked Questions",
     faqDescription:
       "Answers about ordering, pricing, lead times, pickup, and payment at Wan Wan Bakery Singapore.",
@@ -46,7 +46,7 @@ export const en: Dictionary = {
       "Contact us to confirm price, size, availability, and pickup time. Limited slots daily - please order 1-3 days in advance for all items.",
     orderEnquiryTitle: "Order Enquiry",
     orderEnquiryText:
-      "For price, availability, or custom requests, WhatsApp or call 81571573. Most customers hear back within a few hours.",
+      "For price, availability, or custom requests, contact us on WhatsApp. Most customers hear back within a few hours.",
     contactBakery: "Contact Wan Wan Bakery",
     reviewCart: "Review Cart",
     shareFacebook: "Share on Facebook",
@@ -71,18 +71,18 @@ export const en: Dictionary = {
     testimonials: [
       {
         quote:
-          "The pandan chiffon is always soft and fragrant. We order ahead for family gatherings every month.",
-        author: "Regular customer, Singapore",
-      },
-      {
-        quote:
-          "Garlic bread arrives fresh and crispy. Easy to order on WhatsApp and pickup is smooth.",
-        author: "Home baker fan",
-      },
-      {
-        quote:
-          "Cheesecake was creamy and not too sweet - perfect for my daughter's birthday.",
+          "The burnt cheesecake was creamy and not too sweet - perfect for my daughter's birthday.",
         author: "Birthday order",
+      },
+      {
+        quote:
+          "The fudge brownies were rich and fudgy. Easy to order on WhatsApp and pickup was smooth.",
+        author: "Home bakery fan",
+      },
+      {
+        quote:
+          "Pandan gula melaka chiffon is fragrant and light. We order ahead for family gatherings every month.",
+        author: "Regular customer, Singapore",
       },
     ],
   },
@@ -104,7 +104,7 @@ export const en: Dictionary = {
   about: {
     title: "About Wan Wan Bakery",
     paragraph1:
-      "Wan Wan Bakery is a Singapore home bakery known for freshly baked garlic bread, fragrant pandan chiffon cake, and creamy cheesecake. Every item is made to order with care for family gatherings, celebrations, and everyday treats.",
+      "Wan Wan Bakery is a Singapore home bakery known for pandan chiffon, butter cake, burnt cheesecake, fudge brownies and more. Every item is made to order with care for family gatherings, celebrations, and everyday treats.",
     paragraph2:
       "With more than 15 years of baking experience, we focus on quality ingredients, reliable lead times, and friendly WhatsApp service. Because we bake in limited daily batches, ordering ahead helps us prepare your items at their best.",
     howItWorks: "How ordering works",

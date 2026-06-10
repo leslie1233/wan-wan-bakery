@@ -197,6 +197,18 @@ textarea:focus-visible {
   object-fit: cover;
 }
 
+.home-hero-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+.home-hero-logo {
+  object-fit: contain;
+  padding: 12px;
+}
+
 .home-hero-copy h1 {
   margin: 0 0 10px;
   font-size: clamp(1.65rem, 3vw, 2.25rem);
