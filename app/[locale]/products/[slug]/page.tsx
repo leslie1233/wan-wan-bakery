@@ -7,6 +7,7 @@ import FacebookShareLink from "../../../../components/FacebookShareLink";
 import JsonLd from "../../../../components/JsonLd";
 import PromotionBanner from "../../../../components/PromotionBanner";
 import WhatsAppLink from "../../../../components/WhatsAppLink";
+import { formatPrice } from "../../../../lib/format";
 import {
   getAllProductSlugs,
   getCatalogProduct,
@@ -136,6 +137,12 @@ export default async function ProductDetailPage({
         <div>
           <p className="meta">{product.category}</p>
           <h1>{product.name}</h1>
+
+          {product.priceCents > 0 ? (
+            <p className="product-price">
+              <strong>{formatPrice(product.priceCents)}</strong>
+            </p>
+          ) : null}
 
           <p>{product.description}</p>
 

@@ -85,5 +85,6 @@ model SiteSettings {
   phone          String
   phoneE164      String
   whatsappNumber String
+  paynowNumber   String   @default("")
   updatedAt      DateTime @updatedAt
 }

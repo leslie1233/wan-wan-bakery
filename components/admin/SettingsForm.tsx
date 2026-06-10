@@ -1,7 +1,11 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { parsePhoneInput, type SiteContactSettings } from "../../lib/phone";
+import {
+  parsePayNowInput,
+  parsePhoneInput,
+  type SiteContactSettings,
+} from "../../lib/phone";
 
 type SettingsFormProps = {
   initialValues: SiteContactSettings;
@@ -9,14 +13,21 @@ type SettingsFormProps = {
 
 export default function SettingsForm({ initialValues }: SettingsFormProps) {
   const [phoneInput, setPhoneInput] = useState(initialValues.phone);
+  const [paynowInput, setPaynowInput] = useState(initialValues.paynowNumber);
   const [preview, setPreview] = useState(initialValues);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   const livePreview = useMemo(() => {
-    return parsePhoneInput(phoneInput) ?? preview;
-  }, [phoneInput, preview]);
+    const phone = parsePhoneInput(phoneInput) ?? preview;
+    const paynowNumber = parsePayNowInput(paynowInput) ?? phone.paynowNumber;
+
+    return {
+      ...phone,
+      paynowNumber,
+    };
+  }, [phoneInput, paynowInput, preview]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -27,29 +38,33 @@ export default function SettingsForm({ initialValues }: SettingsFormProps) {
     const response = await fetch("/api/admin/settings", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone: phoneInput }),
+      body: JSON.stringify({
+        phone: phoneInput,
+        paynowNumber: paynowInput,
+      }),
     });
 
     const data = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      setError(data.error ?? "Unable to save phone number.");
+      setError(data.error ?? "Unable to save contact settings.");
       setLoading(false);
       return;
     }
 
     setPreview(data.settings);
     setPhoneInput(data.settings.phone);
-    setSuccess("Phone number updated across the website.");
+    setPaynowInput(data.settings.paynowNumber);
+    setSuccess("Contact settings updated across the website.");
     setLoading(false);
   }
 
   return (
     <form className="admin-card admin-form" onSubmit={handleSubmit}>
-      <h2>Contact phone</h2>
+      <h2>Contact settings</h2>
       <p className="admin-intro">
-        Update the phone and WhatsApp number shown on your website, footer,
-        contact page, and WhatsApp order links.
+        Update the phone, WhatsApp, and PayNow numbers shown on your website,
+        footer, contact page, cart checkout, and WhatsApp order links.
       </p>
 
       <label>
@@ -57,7 +72,17 @@ export default function SettingsForm({ initialValues }: SettingsFormProps) {
         <input
           value={phoneInput}
           onChange={(event) => setPhoneInput(event.target.value)}
-          placeholder="81571573"
+          placeholder="93855540"
+          required
+        />
+      </label>
+
+      <label>
+        PayNow number
+        <input
+          value={paynowInput}
+          onChange={(event) => setPaynowInput(event.target.value)}
+          placeholder="93855540"
           required
         />
       </label>
@@ -72,13 +97,16 @@ export default function SettingsForm({ initialValues }: SettingsFormProps) {
         <p>
           <strong>WhatsApp:</strong> {livePreview.whatsappNumber}
         </p>
+        <p>
+          <strong>PayNow:</strong> {livePreview.paynowNumber}
+        </p>
       </div>
 
       {error ? <p className="admin-error">{error}</p> : null}
       {success ? <p className="admin-success">{success}</p> : null}
 
       <button type="submit" className="button admin-button" disabled={loading}>
-        {loading ? "Saving..." : "Save phone number"}
+        {loading ? "Saving..." : "Save contact settings"}
       </button>
     </form>
   );

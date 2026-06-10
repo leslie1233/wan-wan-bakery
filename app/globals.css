@@ -749,7 +749,86 @@ textarea:focus-visible {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  align-items: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.cart-item-main {
+  flex: 1 1 220px;
+}
+
+.cart-item-price,
+.cart-line-total {
+  margin: 0;
+  color: var(--muted);
+}
+
+.cart-summary,
+.paynow-box {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px 28px;
+  margin: 24px 0;
+  box-shadow: 0 10px 30px rgba(82, 45, 25, 0.08);
+}
+
+.cart-summary h2,
+.paynow-box h2 {
+  margin-top: 0;
+  text-align: left;
+  font-size: 1.4rem;
+}
+
+.cart-summary-rows {
+  margin: 0;
+}
+
+.cart-summary-rows > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-summary-rows > div:last-child {
+  border-bottom: none;
+}
+
+.cart-summary-rows dt,
+.cart-summary-rows dd {
+  margin: 0;
+}
+
+.cart-summary-discount dd {
+  color: #0f766e;
+}
+
+.cart-summary-total {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand-dark);
+}
+
+.paynow-number,
+.paynow-amount {
+  font-size: 1.1rem;
+}
+
+.paynow-actions {
+  justify-content: flex-start;
+  margin-top: 12px;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  color: var(--brand-dark);
+}
+
+.price-line strong {
+  color: var(--brand-dark);
+  margin-right: 10px;
 }
 
 .cart-item h2 {

@@ -143,12 +143,14 @@ async function main() {
       phone: siteConfig.phone,
       phoneE164: siteConfig.phoneE164,
       whatsappNumber: siteConfig.whatsappNumber,
+      paynowNumber: siteConfig.phone,
     },
     create: {
       id: "default",
       phone: siteConfig.phone,
       phoneE164: siteConfig.phoneE164,
       whatsappNumber: siteConfig.whatsappNumber,
+      paynowNumber: siteConfig.phone,
     },
   });
 

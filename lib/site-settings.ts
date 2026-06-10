@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS: SiteContactSettings = {
   phone: siteConfig.phone,
   phoneE164: siteConfig.phoneE164,
   whatsappNumber: siteConfig.whatsappNumber,
+  paynowNumber: siteConfig.phone,
 };
 
 export type { SiteContactSettings };
@@ -29,6 +30,7 @@ export async function getSiteSettings(): Promise<SiteContactSettings> {
       phone: settings.phone,
       phoneE164: settings.phoneE164,
       whatsappNumber: settings.whatsappNumber,
+      paynowNumber: settings.paynowNumber || settings.phone,
     };
   } catch {
     return DEFAULT_SETTINGS;
@@ -46,12 +48,14 @@ export async function updateSiteSettings(input: SiteContactSettings) {
       phone: input.phone,
       phoneE164: input.phoneE164,
       whatsappNumber: input.whatsappNumber,
+      paynowNumber: input.paynowNumber,
     },
     create: {
       id: "default",
       phone: input.phone,
       phoneE164: input.phoneE164,
       whatsappNumber: input.whatsappNumber,
+      paynowNumber: input.paynowNumber,
     },
   });
 

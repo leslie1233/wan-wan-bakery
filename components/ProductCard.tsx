@@ -10,6 +10,8 @@ import { productEnquiryMessage } from "../lib/whatsapp-messages";
 import { useLocale } from "./LocaleProvider";
 import { useSiteSettings } from "./SiteSettingsProvider";
 import WhatsAppLink from "./WhatsAppLink";
+import AddToCartButton from "./AddToCartButton";
+import { formatPrice } from "../lib/format";
 
 export default function ProductCard({ product }: { product: CatalogProduct }) {
   const { locale, dict } = useLocale();
@@ -38,12 +40,16 @@ export default function ProductCard({ product }: { product: CatalogProduct }) {
           <h3>{product.name}</h3>
           <p>{product.description}</p>
           <p className="price-line">
+            {product.priceCents > 0 ? (
+              <strong>{formatPrice(product.priceCents)}</strong>
+            ) : null}
             <span className="badge">{leadTimeBadges[locale]}</span>
           </p>
         </div>
       </Link>
 
       <div className="card-actions">
+        <AddToCartButton product={product} />
         <Link
           className="button secondary"
           href={localePath(locale, `/products/${product.slug}`)}
@@ -52,7 +58,7 @@ export default function ProductCard({ product }: { product: CatalogProduct }) {
         </Link>
         <WhatsAppLink
           href={whatsapp}
-          className="button"
+          className="button secondary"
           eventLabel={`card_whatsapp_${product.slug}`}
         >
           {dict.productsPage.orderWhatsApp}

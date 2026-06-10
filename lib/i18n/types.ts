@@ -134,6 +134,18 @@ export type Dictionary = {
     clearCart: string;
     addToCart: string;
     addedToCart: string;
+    orderSummary: string;
+    subtotal: string;
+    discount: string;
+    total: string;
+    unitPrice: string;
+    lineTotal: string;
+    contactForPrice: string;
+    payNowTitle: string;
+    payNowText: string;
+    payNowNumber: string;
+    copyPayNow: string;
+    payNowCopied: string;
   };
   faq: {
     title: string;
@@ -171,6 +183,10 @@ export type Dictionary = {
     totalQuantity: string;
     bulkPromotion: string;
     bulkNotQualified: string;
+    subtotal: string;
+    discount: string;
+    total: string;
+    payNow: string;
     questionAbout: string;
   };
 };

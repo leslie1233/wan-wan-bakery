@@ -1,37 +1,40 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getCartItemCount } from "../lib/cart";
+import type { CartPricing } from "../lib/cart-pricing";
 import type { PromotionView } from "../lib/catalog-types";
+import { formatPrice } from "../lib/format";
 import { getApplicableTier } from "../lib/promotion-store";
-import { useLocale } from "./LocaleProvider";
-import { useCart } from "./CartProvider";
+import { useDictionary } from "./LocaleProvider";
 
-export default function CartPromotionNote() {
-  const { items } = useCart();
-  const { locale } = useLocale();
-  const [promotion, setPromotion] = useState<PromotionView | null>(null);
-  const totalQuantity = getCartItemCount(items);
+type CartPromotionNoteProps = {
+  promotion: PromotionView | null;
+  pricing: CartPricing;
+};
 
-  useEffect(() => {
-    fetch(`/api/promotions?locale=${locale}`)
-      .then((response) => response.json())
-      .then((data) => setPromotion(data.promotion))
-      .catch(() => setPromotion(null));
-  }, [locale]);
+export default function CartPromotionNote({
+  promotion,
+  pricing,
+}: CartPromotionNoteProps) {
+  const dict = useDictionary();
 
-  if (totalQuantity === 0 || !promotion?.active) {
+  if (pricing.totalQuantity === 0 || !promotion?.active) {
     return null;
   }
 
-  const tier = getApplicableTier(promotion.tiers, totalQuantity);
+  const tier = getApplicableTier(promotion.tiers, pricing.totalQuantity);
   const message = tier
-    ? `${tier.label} applies to your order.`
+    ? dict.promotion.cartQualified.replace("{{label}}", tier.label)
     : promotion.cartHint;
 
   return (
     <p className="promotion-note">
       <strong>{promotion.title}:</strong> {message}
+      {pricing.discountCents > 0 ? (
+        <>
+          {" "}
+          ({dict.cart.discount}: -{formatPrice(pricing.discountCents)})
+        </>
+      ) : null}
     </p>
   );
 }

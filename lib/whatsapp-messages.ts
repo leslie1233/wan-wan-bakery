@@ -1,8 +1,18 @@
 import type { Dictionary } from "./i18n/types";
+import { formatPrice } from "./format";
 
 type OrderLine = {
   name: string;
   quantity: number;
+  unitCents?: number;
+  lineSubtotalCents?: number;
+};
+
+type OrderTotals = {
+  subtotalCents: number;
+  discountCents: number;
+  totalCents: number;
+  paynowNumber: string;
 };
 
 export function generalEnquiryMessage(dict: Dictionary): string {
@@ -33,7 +43,12 @@ export function productEnquiryMessage(
 export function cartOrderMessage(
   dict: Dictionary,
   items: OrderLine[],
-  promotionTiers: { minQuantity: number; label: string }[],
+  promotionTiers: {
+    minQuantity: number;
+    label: string;
+    discountPercent?: number;
+  }[],
+  totals: OrderTotals,
   pickupDate?: string,
   notes?: string
 ): string {
@@ -46,13 +61,31 @@ export function cartOrderMessage(
 
   const lines = [
     dict.whatsapp.placeOrder,
-    ...items.map((item) => `• ${item.name} x ${item.quantity}`),
+    ...items.map((item) => {
+      if (item.unitCents && item.unitCents > 0) {
+        return `• ${item.name} x ${item.quantity} (${formatPrice(item.unitCents)} each = ${formatPrice(item.lineSubtotalCents ?? item.unitCents * item.quantity)})`;
+      }
+
+      return `• ${item.name} x ${item.quantity}`;
+    }),
     `• ${dict.whatsapp.totalQuantity}: ${totalQuantity}`,
     promotionLabel
       ? `• ${dict.whatsapp.bulkPromotion}: ${promotionLabel}`
       : `• ${dict.whatsapp.bulkPromotion}: ${dict.whatsapp.bulkNotQualified}`,
-    `• ${dict.whatsapp.pickupDate}: ${pickupDate ?? ""}`,
   ];
+
+  if (totals.subtotalCents > 0) {
+    lines.push(`• ${dict.whatsapp.subtotal}: ${formatPrice(totals.subtotalCents)}`);
+
+    if (totals.discountCents > 0) {
+      lines.push(`• ${dict.whatsapp.discount}: -${formatPrice(totals.discountCents)}`);
+    }
+
+    lines.push(`• ${dict.whatsapp.total}: ${formatPrice(totals.totalCents)}`);
+    lines.push(`• ${dict.whatsapp.payNow}: ${totals.paynowNumber}`);
+  }
+
+  lines.push(`• ${dict.whatsapp.pickupDate}: ${pickupDate ?? ""}`);
 
   if (notes?.trim()) {
     lines.push(`• ${dict.whatsapp.notes}: ${notes.trim()}`);

@@ -2,6 +2,7 @@ export type SiteContactSettings = {
   phone: string;
   phoneE164: string;
   whatsappNumber: string;
+  paynowNumber: string;
 };
 
 export function parsePhoneInput(raw: string): SiteContactSettings | null {
@@ -12,6 +13,7 @@ export function parsePhoneInput(raw: string): SiteContactSettings | null {
       phone: digits,
       phoneE164: `+65${digits}`,
       whatsappNumber: `65${digits}`,
+      paynowNumber: digits,
     };
   }
 
@@ -21,6 +23,7 @@ export function parsePhoneInput(raw: string): SiteContactSettings | null {
       phone: local,
       phoneE164: `+${digits}`,
       whatsappNumber: digits,
+      paynowNumber: local,
     };
   }
 
@@ -29,10 +32,16 @@ export function parsePhoneInput(raw: string): SiteContactSettings | null {
       phone: digits.slice(2),
       phoneE164: `+${digits}`,
       whatsappNumber: digits,
+      paynowNumber: digits.slice(2),
     };
   }
 
   return null;
+}
+
+export function parsePayNowInput(raw: string): string | null {
+  const parsed = parsePhoneInput(raw);
+  return parsed?.paynowNumber ?? null;
 }
 
 export function formatCallLabel(label: string, phone: string): string {
